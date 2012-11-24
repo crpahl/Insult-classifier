@@ -1,37 +1,45 @@
 import csv
 import string
+import enchant
+
+from enchant.checker import SpellChecker
+from enchant.tokenize import get_tokenizer, HTMLChunker, EmailFilter, URLFilter, WikiWordFilter
 
 DATA_FILES = ['test_with_solutions.csv',
               'train.csv']
 
+dictionary = enchant.Dict("en_US")
+tokenizer = get_tokenizer(tag="en_US", chunkers=[HTMLChunker], filters=[EmailFilter, URLFilter, WikiWordFilter])
+
 def preprocess():
-    for file in DATA_FILES:
-        #spellCheck()
-        #createCSV()
-        f = None
-        p = True
+    """ Parses the comments from each csv file in DATA_FILES and creates a new
+        correpsonding file with comments that have been delimited into words
+        that have been spell checked.
+    """
+    for dataFile in DATA_FILES:
+        inputFile = None
         try:
-            f = open("../data/" + file, 'rb')
-            f2 = open("../data/processed_" + file, 'wb')
-            fileWriter = csv.writer(f2, delimiter=',')
-            fileReader = csv.reader(f, delimiter=',')
-            fileReader.next()                           #Skip labels
+            inputFile = open("../data/" + dataFile, 'rb')
+            outputFile = open("../data/processed_" + dataFile, 'wb')
+            fileReader = csv.reader(inputFile, delimiter=',')
+            fileWriter = csv.writer(outputFile, delimiter=',')
+            fileReader.next() #Skip header labels
+
             for row in fileReader:
-                if p == True:
-                    p = False;
-                    comment = row[2]
-                    words = stringToWords(comment)
-                    print words
-                    fileWriter.writerow(row[0:2] + words)
+                comment = row[2]
+                words = tokenizeAndSpellCheck(comment)
+                fileWriter.writerow(row[0:2] + words)
         finally:
-            f.close()
-            f2.close()
+            inputFile.close()
+            outputFile.close()
 
-def stringToWords(comment):
-    return ''.join([c for c in comment if c not in string.punctuation]).split()
-
-def createCSV():
-    pass
-
-def spellCheck():
-    pass
+def tokenizeAndSpellCheck(comment):
+    """ Tokenizes the comment into words and spell checks each word with pyenchant.
+    """
+    l = []
+    for word in tokenizer(comment):
+        suggestions = dictionary.suggest(word[0])
+        if suggestions:
+            l.append(suggestions[0])
+    
+    return l
