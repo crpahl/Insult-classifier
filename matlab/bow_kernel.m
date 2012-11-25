@@ -33,7 +33,7 @@ function [count] = num_words_in_common(X1, X2, cmp)
 % count is the sum of the application of cmp on X1 and X2, where X1 and X2 are
 % not zero.
 
-    n = size(X1);
+    n = size(X1)(2);
     count = 0;
     
     for i = 1:n
