@@ -15,8 +15,10 @@ function [K] = bow_kernel(X1, X2, varargin)
         cmp = @(x, y) (0.5 * (x + y));
     elseif strcmp(cmp_str, 'binary')
         cmp = @(x, y) ((x ~= 0) && (y ~= 0));
-    else    % addition
+    elseif strcmp(cmp_str, 'addition')
         cmp = @(x, y) (x + y);
+    else   % common
+        cmp = @(x, y) min(x, y);
     end
     
     K = zeros(te, t);
