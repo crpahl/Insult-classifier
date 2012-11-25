@@ -5,19 +5,19 @@ function [K] = bow_kernel(X1, X2, varargin)
     
     [te, n] = size(X1);
     [t, n] = size(X2);
-    cmp_str = cell2str(varargin{1});
+    cmp_str = varargin{1};
     
     if strcmp(cmp_str, 'mult')
         cmp = @(x, y) (x * y);
-    else if strcmp(cmp_str, 'sqrt')
+    elseif strcmp(cmp_str, 'sqrt')
         cmp = @(x, y) sqrt(x + y);
-    else if strcmp(cmp_str, 'average')
+    elseif strcmp(cmp_str, 'average')
         cmp = @(x, y) (0.5 * (x + y));
-    else if strcmp(cmp_str, 'binary')
+    elseif strcmp(cmp_str, 'binary')
         cmp = @(x, y) ((x ~= 0) && (y ~= 0));
-    else
+    else    % addition
         cmp = @(x, y) (x + y);
-    endif
+    end
     
     K = zeros(te, t);
     
