@@ -1,3 +1,4 @@
+tic
 clear all
 
 load data.mat;
@@ -11,3 +12,5 @@ yhat = adjclassify(Ktest, a, c);
 err = (yhat == ytest)/length(yhat);
 
 sum
+timespent(1) = toc;
+timespent
