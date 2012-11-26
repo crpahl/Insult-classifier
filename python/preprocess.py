@@ -3,6 +3,7 @@
 import csv
 import string
 import enchant
+import textmining
 
 from termDocumentMatrix import TermDocumentMatrix
 from enchant.checker import SpellChecker
@@ -51,6 +52,8 @@ def preprocessBagOfWords():
               include numbers, grammar, internet words (memes), etc...
             - How to accurately replace words that are mispelled. Should we always take the
               first suggestion or should we have some sort of heuristic?
+            - May want to replace multiple variants of one word (fucker, fucking, fuck)
+              with one common word (fuck) to reduce features
     """
     addWords = True
     tdm = TermDocumentMatrix()
@@ -71,7 +74,7 @@ def preprocessBagOfWords():
             for row in fileReader:
                 comment = row[2]
                 insult = row[0]
-                words = tokenizeAndSpellCheck(comment)
+                words = tokenizeAndSpellCheck(comment, removeStopWords=True)
                 tdm.add_doc(words, addWordsToDictionary=addWords)
                 fileWriter.writerow(insult)
         finally:
@@ -79,7 +82,7 @@ def preprocessBagOfWords():
             inputFile.close()
             outputFile.close()
 
-def tokenizeAndSpellCheck(comment):
+def tokenizeAndSpellCheck(comment, removeStopWords=False):
     """ Tokenizes the comment into words and spell checks each word with pyenchant.
 
         NOTE: Some major work may need to be done here to insure we're getting the
@@ -92,5 +95,8 @@ def tokenizeAndSpellCheck(comment):
         suggestions = filter(lambda x:' ' not in x, suggestions)
         if suggestions:
             l.append(suggestions[0])
+
+    if removeStopWords:
+        l = textmining.simple_tokenize_remove_stopwords(" ".join(l))
     
     return l
