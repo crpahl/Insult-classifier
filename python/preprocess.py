@@ -36,7 +36,7 @@ def preprocessSpellCheck():
             inputFile.close()
             outputFile.close()
 
-def preprocessBagOfWords():
+def preprocessBagOfWords(removeStopWords=False, count=None):
     """ Creates a new bag-of-words csv for each csv in DATA_FILES. Each entry in the
         bag-of-words csv represents the number of times the corresponding word occurs
         in the comment.
@@ -74,10 +74,13 @@ def preprocessBagOfWords():
             for row in fileReader:
                 comment = row[2]
                 insult = row[0]
-                words = tokenizeAndSpellCheck(comment, removeStopWords=True)
+                words = tokenizeAndSpellCheck(comment, removeStopWords=removeStopWords)
                 tdm.add_doc(words, addWordsToDictionary=addWords)
                 fileWriter.writerow(insult)
         finally:
+            if count and dataFile == TRAIN:
+                tdm.remove_words(count)
+
             tdm.write_csv("../data/X_bagOfWords_" + dataFile, cutoff=1)
             inputFile.close()
             outputFile.close()

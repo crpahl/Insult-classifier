@@ -1,8 +1,7 @@
 """ 
 A slighty modified version of the TermDocumentMatrix from the textmining package.
 """
-
-
+import operator
 import csv
 
 class TermDocumentMatrix:
@@ -48,6 +47,11 @@ class TermDocumentMatrix:
     def clear_docs(self):
         """Clear all currently added docs but retain the dictionary"""
         self.sparse = []
+
+    def remove_words(self, count):
+        """Keep the 'count' most frequently used words"""
+        doc_count_sorted = sorted(self.doc_count.iteritems(), key=operator.itemgetter(1), reverse=True)
+        self.doc_count = {i[0]:i[1] for i in doc_count_sorted[:count]}
 
     def rows(self, cutoff=2):
         """Helper function that returns rows of term-document matrix."""
