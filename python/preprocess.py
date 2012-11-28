@@ -9,8 +9,8 @@ from termDocumentMatrix import TermDocumentMatrix
 from enchant.checker import SpellChecker
 from enchant.tokenize import get_tokenizer, HTMLChunker, EmailFilter, URLFilter, WikiWordFilter
 
-TEST = 'test_with_solutions.csv'
-TRAIN = 'train.csv'
+TEST = ('test_with_solutions.csv', 'test.csv')
+TRAIN = ('train.csv', 'train.csv')
 
 dictionary = enchant.Dict("en_US")
 tokenizer = get_tokenizer(tag="en_US", chunkers=[HTMLChunker], filters=[EmailFilter, URLFilter, WikiWordFilter])
@@ -61,8 +61,8 @@ def preprocessBagOfWords(removeStopWords=False, count=None):
     #TRAIN must be processed first in order to construct bag-of-words properly
     for dataFile in [TRAIN, TEST]:
         try:
-            inputFile = open("../data/" + dataFile, 'rb')
-            outputFile = open("../data/Y_" + dataFile, 'wb')
+            inputFile = open("../data/" + dataFile[0], 'rb')
+            outputFile = open("../data/Y" + dataFile[1], 'wb')
             fileReader = csv.reader(inputFile, delimiter=',')
             fileWriter = csv.writer(outputFile, delimiter=',')
             fileReader.next() #Skip header labels
@@ -81,7 +81,7 @@ def preprocessBagOfWords(removeStopWords=False, count=None):
             if count and dataFile == TRAIN:
                 tdm.remove_words(count)
 
-            tdm.write_csv("../data/X_bagOfWords_" + dataFile, cutoff=1)
+            tdm.write_csv("../data/X" + dataFile[1], cutoff=1)
             inputFile.close()
             outputFile.close()
 
