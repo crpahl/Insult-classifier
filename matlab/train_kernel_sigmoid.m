@@ -31,4 +31,5 @@ function [x] = sigmoid_err(w, H, K, y)
     y_hat = sigmoid(K*w(1:t) - w(t+1)); % sigmoid(K*w - b)
 
     x = w'*H*w + y'*log(y./y_hat) + (1-y)'*log((1-y)./(1-y_hat));
+
 end
