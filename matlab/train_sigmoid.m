@@ -10,8 +10,9 @@ function [model] = train_sigmoid(Xtrain, ytrain, beta)
     H = [0.5*beta*eye(n) zeros(n, 1) ; zeros(1, n) 0];
     
     phi = @(x)sigmoid_err(x, H, Xtrain, ytrain);
+    opt = optimset('TolFun',0e-6, 'LargeScale', 'off',  'display', 'off');
     
-    model = fminunc(phi, zeros(n+1, 1));
+    model = fminunc(phi, zeros(n+1, 1), opt);
 
 end
 
