@@ -2,7 +2,7 @@
 clear all
 load ../data/data.mat;
 
-trainNum = 50;
+trainNum = 25;
 testNum = 100;
 mXtrain = Xtrain(1:trainNum, :);
 mytrain = ytrain(1:trainNum);
@@ -32,7 +32,8 @@ end
 
 timespent(1) = toc;
 
-err = (yhat ~= ytest(1:testNum))
+err = (yhat ~= ytest(1:testNum));
+results = [yhat ytest(1:testNum) err]
 totalAvgErr = sum(err) / testNum
 
 timespent
