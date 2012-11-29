@@ -1,0 +1,8 @@
+cd ../python
+#modify preprocessBagOfWords or set peramaters to generate different data sets
+python -c "import preprocess; preprocess.preprocessBagOfWords()"
+cd ../matlab
+matlab -nodesktop -r processCSV
+
+#uncomment to move newly generated data if you don't want it to be overwritten
+#mv ../data/data.mat ../data/dataBlah.mat
