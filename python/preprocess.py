@@ -4,6 +4,7 @@ import csv
 import string
 import enchant
 import textmining
+import datetime
 
 from termDocumentMatrix import TermDocumentMatrix
 from enchant.checker import SpellChecker
@@ -73,9 +74,10 @@ def preprocessBagOfWords(removeStopWords=False, count=None):
 
             for row in fileReader:
                 comment = row[2]
+                timeAndDate = getTimeAndDate(row[1])
                 insult = row[0]
                 words = tokenizeAndSpellCheck(comment, removeStopWords=removeStopWords)
-                tdm.add_doc(words, addWordsToDictionary=addWords)
+                tdm.add_doc(words, otherFeatures=timeAndDate, addWordsToDictionary=addWords)
                 fileWriter.writerow(insult)
         finally:
             if count and dataFile == TRAIN:
@@ -88,7 +90,7 @@ def preprocessBagOfWords(removeStopWords=False, count=None):
 def tokenizeAndSpellCheck(comment, removeStopWords=False):
     """ Tokenizes the comment into words and spell checks each word with pyenchant.
 
-        NOTE: Some major work may need to be done here to insure we're getting the
+        NOTE: Some major work may need to be done here to ensure we're getting the
         best features (words)
     """
     l = []
@@ -103,3 +105,18 @@ def tokenizeAndSpellCheck(comment, removeStopWords=False):
         l = textmining.simple_tokenize_remove_stopwords(" ".join(l))
     
     return l
+
+def getTimeAndDate(timeString):
+    # binary representation of day of week
+    dayData = [0 for tmp in range(7)]
+    day = datetime.date(int(timeString[0:4]), int(timeString[4:6]), int(timeString[6:8]))
+    dayData[day.isoweekday() - 1] = 1
+    
+    # binary representation of hour of day
+    timeData = [0 for tmp in range(24)]
+    timeData[int(timeString[8:10])] = 1
+    
+    dayData.extend(timeData)
+    
+    return dayData
+    

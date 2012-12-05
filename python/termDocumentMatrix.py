@@ -27,10 +27,13 @@ class TermDocumentMatrix:
         # list of dictionaries. Each dictionary contains the word
         # counts for a document.
         self.sparse = []
+        # a parallel list for additional features to be appended to the
+        # end of the bow vector.
+        self.otherFeatures = []
         # Keep track of the number of documents containing the word.
         self.doc_count = {}
 
-    def add_doc(self, words, addWordsToDictionary=True):
+    def add_doc(self, words, others=[], addWordsToDictionary=True):
         """Add document to the term-document matrix."""
         # Count word frequencies in this document
         word_counts = {}
@@ -38,7 +41,8 @@ class TermDocumentMatrix:
             word_counts[word] = word_counts.get(word, 0) + 1
         # Add word counts as new row to sparse matrix
         self.sparse.append(word_counts)
-
+        self.otherFeatures.append(others)
+        
         if addWordsToDictionary:
             # Add to total document count for each word
             for word in word_counts:
@@ -63,10 +67,11 @@ class TermDocumentMatrix:
         # Return header
         yield words
         # Loop over rows
-        for row in self.sparse:
+        for row, other in zip(self.sparse, self.otherFeatures):
             # Get word counts for all words in master list. If a word does
             # not appear in this document it gets a count of 0.
             data = [row.get(word, 0) for word in words]
+            data.extend(other)
             yield data
 
     def write_csv(self, filename, cutoff=2):
