@@ -51,7 +51,9 @@ class TermDocumentMatrix:
     def remove_words(self, count):
         """Keep the 'count' most frequently used words"""
         doc_count_sorted = sorted(self.doc_count.iteritems(), key=operator.itemgetter(1), reverse=True)
-        self.doc_count = {i[0]:i[1] for i in doc_count_sorted[:count]}
+        self.doc_count = {}
+        for entry in doc_count_sorted[:count]:
+            self.doc_count[entry[0]] = entry[1]
 
     def rows(self, cutoff=2):
         """Helper function that returns rows of term-document matrix."""
