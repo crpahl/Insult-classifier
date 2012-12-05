@@ -2,8 +2,8 @@
 clear all
 load ../data/data.mat;
 
-trainNum = 200;
-testNum = 400;
+trainNum = 100;
+testNum = 200;
 mXtrain = Xtrain(1:trainNum, :);
 mytrain = ytrain(1:trainNum);
 trainData = mytrain;
@@ -26,9 +26,9 @@ tic
 
 yhat = pred_kernel_sigmoid(Xtest(1:testNum, :), model); 
 
-% Probability -> Classification (95% confidence)
+% Probability -> Classification (90% confidence)
 %  for i = 1:testNum
-%      if yhat(i) >= 0.85
+%      if yhat(i) >= 0.90
 %          yhat(i) = 1;
 %      else 
 %          yhat(i) = 0;
