@@ -19,7 +19,7 @@ for i = 1:trainNum
     end
 end
 
-[model] = train_kernel_sigmoid(mXtrain, mytrain, 0.5, 'bow_kernel', 'binary');
+[model] = train_kernel_sigmoid(mXtrain, mytrain, 0.5, 'bow_kernel', 'min');
 
 trainTime(1) = toc;
 tic
