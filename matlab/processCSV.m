@@ -1,14 +1,14 @@
-function [Xtrain,ytrain,Xtest,ytest] = processCSV(XtrainFilename, ytrainFilename, XtestFilename, ytestFilename)
+function [] = processCSV()
 'Converting XTrain...'
-Xtrain = csvread(XtrainFilename, 1,0);
+Xtrain = csvread('../data/Xtrain.csv', 1,0);
 'Converting ytrain...'
-ytrain = csvread(ytrainFilename);
+ytrain = csvread('../data/Ytrain.csv');
 'Converting XTest...'
-Xtest = csvread(XtestFilename,1,0);
+Xtest = csvread('../data/Xtest.csv',1,0);
 'Converting ytest..'
-ytest = csvread(ytestFilename);
+ytest = csvread('../data/Ytest.csv');
 
 'Creating file data.mat..'
-save('data.mat','Xtrain','ytrain','Xtest','ytest');
+save('../data/data.mat','Xtrain','ytrain','Xtest','ytest');
 
 end

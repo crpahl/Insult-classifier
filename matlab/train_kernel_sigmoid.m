@@ -15,8 +15,9 @@ function [model] = train_kernel_sigmoid(Xtrain, ytrain, beta, kernel, varargin)
     H = [0.5*beta*Ktrain zeros(t, 1) ; zeros(1, t) 0];
     
     phi = @(x)sigmoid_err(x, H, Ktrain, ytrain);
+    opt = optimset('TolFun',0e-6, 'LargeScale', 'off',  'display', 'off');
     
-    z = fminunc(phi, zeros(t+1, 1));
+    z = fminunc(phi, zeros(t+1, 1), opt);
 
     model = {z(1:t), z(t+1), Xtrain, kernel, varargin};
     
@@ -30,4 +31,5 @@ function [x] = sigmoid_err(w, H, K, y)
     y_hat = sigmoid(K*w(1:t) - w(t+1)); % sigmoid(K*w - b)
 
     x = w'*H*w + y'*log(y./y_hat) + (1-y)'*log((1-y)./(1-y_hat));
+
 end
