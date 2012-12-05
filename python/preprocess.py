@@ -77,7 +77,7 @@ def preprocessBagOfWords(removeStopWords=False, count=None):
                 timeAndDate = getTimeAndDate(row[1])
                 insult = row[0]
                 words = tokenizeAndSpellCheck(comment, removeStopWords=removeStopWords)
-                tdm.add_doc(words, otherFeatures=timeAndDate, addWordsToDictionary=addWords)
+                tdm.add_doc(words, others=timeAndDate, addWordsToDictionary=addWords)
                 fileWriter.writerow(insult)
         finally:
             if count and dataFile == TRAIN:
