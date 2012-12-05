@@ -108,6 +108,10 @@ def tokenizeAndSpellCheck(comment, removeStopWords=False):
 
 def getTimeAndDate(timeString):
     # binary representation of day of week
+    
+    if not timeString:
+        return [0 for tmp in range(31)]
+    
     dayData = [0 for tmp in range(7)]
     day = datetime.date(int(timeString[0:4]), int(timeString[4:6]), int(timeString[6:8]))
     dayData[day.isoweekday() - 1] = 1
