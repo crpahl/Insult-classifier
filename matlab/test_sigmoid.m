@@ -3,16 +3,16 @@ clear all
 load ../data/data.mat;
 
 trainNum = 200;
-testNum = 300;
+testNum = 250;
 [mXtrain mytrain] = getSubset(Xtrain, ytrain, trainNum);
-trainData = mytrain;
 
-[mXtest mytest] = getSubset(Xtest, ytest, testNum);
+[t,k] = size(Xtest);
+r = randperm(t);
 
-mXtrain
-mytrain
-mXtest
-mytest
+mXtest = Xtest(r, :);
+mXtest = mXtest(1:testNum);
+mytest = ytest(r, :);
+mytest = mytest(1:testNum);
 
 tic
 
@@ -44,7 +44,6 @@ end
 testTime(1) = toc;
 
 err = abs(yhat - mytest);
-trainData
 results = [yhat mytest err]
 totalAvgErr = sum(err) / testNum
 
