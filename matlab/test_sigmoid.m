@@ -2,15 +2,15 @@
 clear all
 load ../data/data.mat;
 
-trainNum = 200;
-testNum = 250;
+trainNum = 10;
+testNum = 10;
 [mXtrain mytrain] = getSubset(Xtrain, ytrain, trainNum);
 
 [t,k] = size(Xtest);
 r = randperm(t);
 
 mXtest = Xtest(r, :);
-mXtest = mXtest(1:testNum);
+mXtest = mXtest(1:testNum, :);
 mytest = ytest(r, :);
 mytest = mytest(1:testNum);
 
