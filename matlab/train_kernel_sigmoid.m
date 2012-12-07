@@ -8,10 +8,19 @@ function [model] = train_kernel_sigmoid(Xtrain, ytrain, beta, kernel, varargin)
 
 % model is [a b Xtrain kernel arg] where a is the tx1 weights, and b is the
 % scalar offset, corresponding to the minimum regularized sigmoid error.
-
+    
     Ktrain = feval(kernel, Xtrain, Xtrain, varargin);
-
     [t, t] = size(Ktrain);
+    
+    % Classification -> Strong Probability
+    for i = 1:t
+        if ytrain(i) == 0
+            mytrain(i) = ytrain(i) + 1e-6;
+        else % ytrain(i) == 1
+            mytrain(i) = ytrain(i) - 1e-6;
+        end
+    end
+
     H = [0.5*beta*Ktrain zeros(t, 1) ; zeros(1, t) 0];
     
     phi = @(x)sigmoid_err(x, H, Ktrain, ytrain);
