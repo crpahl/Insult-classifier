@@ -57,7 +57,7 @@
 %	TITLE SECTION
 %----------------------------------------------------------------------------------------
 
-\title{\vspace{-15mm}\fontsize{24pt}{10pt}\selectfont\textbf{Blog Abuse Analyzer}} % Article title
+\title{\vspace{-15mm}\fontsize{24pt}{10pt}\selectfont\textbf{Comment Abuse Analyzer}} % Article title
 
 \author{
 \large
@@ -85,9 +85,12 @@
 \begin{abstract}
 
 \noindent
-Our project is going to predict whether there is abuse detected in a publicly post message.  \
 Since the world is depending more and more to computers to feed people information there tends \
-there is a chance that there will be more and more abuse posted.
+there is a chance that there will be more and more abuse posted.  Not everyone wants to see these \
+messages as some of them could be profound and very abusive to some.  Our project is going to predict \
+whether there is abuse detected in a publicly post message.  To solve this problem we have tried a couple \
+of different methods.
+
 
 \end{abstract}
 
@@ -98,22 +101,39 @@ there is a chance that there will be more and more abuse posted.
 \begin{multicols}{2} % Two-column layout throughout the main article text
 
 \section{Problem}
+Our project entails detecting abuse in public online comments.  This is a common problem that is getting worse \
+each and everyday.  For website administrators or moderators to manually go and moderate all the comments on their \
+website is very costly and time consuming.  Since peforming this task is time consuming a lot of stuff does get missed \
+or does not ever get looked at.  If every comment was to be looked at first posts were take a long time to actually hit \
+website and people would be turned off and go elsewhere.  The big problem we are faced with is whether certain comments \
+are considered abuse or if they are just regular comments.  Since profanity can be used in a regular unabusive way the \
+training data used needs to be refinded so that different comments are classified differently.
 
 %------------------------------------------------
 
 \section{Methods}
 
-Here are the methods we are going to implment: 
-\begin{compactitem}
-\item Bootstrap
-\item Bag of Words
-\item String Kernel
+The methods we are going to investigate are: Bootstrapping, Bag of Words, String Kernel.  We chose these \
+methods as we hypothesized that it would be easier to parse out the features we require.  Here is just a summary \
+of what these methods entail.\
+\\
+\\
+\textbf{Bootstrapping}\\
+Lets make a dataset D$_{n}$ where n is the number of samples in the datatset.  \
+Then we take j = 1 $\rightarrow$ k, where k is how many sampples we are going to use for bootstrapping.  \
+This new dataset will be chosen by random where the j$_{th}$ entry will replace the current entry \
+in D$_{n}$.  After this process is done we will end up with a modified dataset D$_{n}$ that has some \
+entries in duplicate and it may also might have removed some items.
+\\
+\\
+\textbf{Bag of words}\\
+With the bag of words algorithm we take all the words of the training set and uniquely place them in a \
+new ordered set.  The words in the the phrases now create a matrix where each row is create by a method \
+that introduces a weight count for each time the word exists.  This special method called "Term weighting" uses \
+hashing to efficiently compare which words in the comment are in our dictionary and thus limits the resources \
+required to run our algorithm.  \
 
-\end{compactitem}
-The first method we will discuss is Bootstrapping.  With bootstrapping \
-we take a dataset of n samples and and independently choose a jth sample.  \
-This jth sample will 
-
+ 
 
 %------------------------------------------------
 
