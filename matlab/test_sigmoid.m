@@ -2,8 +2,8 @@
 clear all
 load ../data/data.mat;
 
-trainNum = 10;
-testNum = 10;
+trainNum = 200;
+testNum = 300;
 [mXtrain mytrain] = getSubset(Xtrain, ytrain, trainNum);
 
 [t,k] = size(Xtest);
