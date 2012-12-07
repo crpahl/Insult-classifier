@@ -29,7 +29,7 @@ function [learner, classifier] = bootstrap(X, y, algorithms, trainCount)
 	errors{iter3, 2} = errors{iter3, 2} / trainCount;
     end 
 
-    [v, i] = max(cell2mat(errors(:, 2)));
+    [v, i] = min(cell2mat(errors(:, 2)));
 
     learner = algorithms{i, 1};
     classifier = algorithms{i, 2};
