@@ -16,5 +16,5 @@ Y1 = y(logical(y), :);
 X2 = X(~logical(y), :);
 Y2 = y(~logical(y), :);
 
-Xsub = [X1(1:floor(num/2)); X2(1:floor(num/2))];
+Xsub = [X1(1:floor(num/2), :); X2(1:floor(num/2), :)];
 ysub = [Y1(1:floor(num/2)); Y2(1:floor(num/2))];
