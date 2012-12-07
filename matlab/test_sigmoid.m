@@ -3,11 +3,16 @@ clear all
 load ../data/data.mat;
 
 trainNum = 200;
-testNum = 250;
+testNum = 300;
 [mXtrain mytrain] = getSubset(Xtrain, ytrain, trainNum);
 trainData = mytrain;
 
 [mXtest mytest] = getSubset(Xtest, ytest, testNum);
+
+mXtrain
+mytrain
+mXtest
+mytest
 
 tic
 
