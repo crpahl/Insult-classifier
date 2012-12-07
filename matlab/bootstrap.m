@@ -19,7 +19,8 @@ function [learner, classifier] = bootstrap(X, y, algorithms, trainCount)
 	    model = algorithms{iter2, 1}(Xtrain, Ytrain);
 	    yhat = algorithms{iter2, 2}(Xtest, model);
 	    %This loss calculation will have to be updated for the project
-	    loss = sum(sum((yhat == convert(Ytest))') == 7)/t;	
+	    %loss = sum(sum((yhat == convert(Ytest))') == 7)/t;	
+	    loss = algorithms{iter2, 3}(yhat, Ytest);
 	    errors{iter2, 2} = errors{iter2, 2} + loss;
 	end
     end
