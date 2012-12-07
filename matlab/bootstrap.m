@@ -15,7 +15,7 @@ function [learner, classifier] = bootstrap(X, y, algorithms, trainCount)
 	[Xtest, Xtrain, Ytest, Ytrain] = buildTestAndTrainBootstrap(X, y);
 	[t, k] = size(Xtest);
 
-	for iter2 = 1:length(algorithms)
+	for iter2 = 1:size(algorithms)
 	    model = algorithms{iter2, 1}(Xtrain, Ytrain);
 	    yhat = algorithms{iter2, 2}(Xtest, model);
 	    %This loss calculation will have to be updated for the project
