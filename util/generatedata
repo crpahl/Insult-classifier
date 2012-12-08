@@ -1,6 +1,6 @@
 cd ../python
 #modify preprocessBagOfWords or set peramaters to generate different data sets
-python -c "import preprocess; preprocess.preprocessBagOfWords(True, 2000)"
+python -c "import preprocess; preprocess.preprocessBagOfWords(count=3000)"
 cd ../matlab
 matlab -nodesktop -r processCSV < /dev/null
 #matlab -nodesktop -r test_sigmoid 
