@@ -1,6 +1,6 @@
 % unkernelized regularized sigmoid prediction
 
-function[yhat] = pred_sigmoid(Xtest, model)
+function [yhat] = pred_sigmoid(Xtest, model)
 % Xtest is a texn matrix, model is [a; b], where a is a nx1 vector of weights,
 % and b is a scalar.
 

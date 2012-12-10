@@ -1,6 +1,6 @@
 % kernelized regularized sigmoid prediction
 
-function[yhat] = pred_kernel_sigmoid(Xtest, model)
+function [yhat] = pred_kernel_sigmoid(Xtest, model)
 % Xtest is a texn matrix, model is {a, b, Xtrain, kernel, arg} where a is the
 % tx1 weights, and b is the scalar offset, corresponding to the minimum
 % regularized sigmoid error.

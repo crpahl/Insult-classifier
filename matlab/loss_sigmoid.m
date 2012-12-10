@@ -1,10 +1,11 @@
-function [loss] = loss_sigmoid(yhat, ytest)
+function [loss] = loss_sigmoid(yhat, ytest, varargin)
 
+    confidence = varargin{1};
     [testNum, k] = size(ytest);
 
-    % Probability -> Classification (66.66% confidence)
+    % Probability -> Classification (% confidence)
     for i = 1:testNum
-        if yhat(i) >= 0.6666
+        if yhat(i) >= confidence
             yhat(i) = 1;
         else 
             yhat(i) = 0;
