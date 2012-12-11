@@ -8,6 +8,9 @@ function [yhat] = adjclassify(X, model)
     kernelargs = model{5};
     
     Ktest = feval(kernel, X, Xtrain, kernelargs);
-    yhat = sign(Ktest*a - b);
+
+    % We need a better classifier!
+%      yhat = sign(Ktest*a - b);
+    yhat = (Ktest*a - b) >= 0;
 
 end

@@ -3,6 +3,11 @@ function [model] = adj_softmargin(X, y, beta, kernel, varargin)
 % a is the tx1 example weights, and b is the scalar offset, corresponding to
 % the minimum regularized soft-margin linear discriminant classifier.
 
+    for i = 1:size(y)
+        if y(i) == 0
+            y(i) = -1;
+    end
+
     K = feval(kernel, X, X, varargin);
 
     [t, t] = size(K);
