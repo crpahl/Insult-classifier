@@ -122,11 +122,11 @@ def getTimeAndDate(timeString):
     
     dayData = [0 for tmp in range(7)]
     day = datetime.date(int(timeString[0:4]), int(timeString[4:6]), int(timeString[6:8]))
-    dayData[day.isoweekday() - 1] = 1
+    dayData[day.isoweekday() - 1] = 10
     
     # binary representation of hour of day
     timeData = [0 for tmp in range(24)]
-    timeData[int(timeString[8:10])] = 1
+    timeData[int(timeString[8:10])] = 10
     
     dayData.extend(timeData)
     
