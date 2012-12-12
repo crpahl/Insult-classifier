@@ -64,28 +64,28 @@ function [errors, bestLearner, results, loss, testTime] = bootstrap_test(algorit
     lseAlgorithms = {
         lse_learn_lin, lse_pred, svm_loss;
         lse_learn_gauss, lse_pred, svm_loss;
-        lse_learn_min, lse_pred, svm_loss;
+%          lse_learn_min, lse_pred, svm_loss;
         lse_learn_binary, lse_pred, svm_loss
     };
     
     softAlgorithms = {
         soft_learn_lin, lse_pred, svm_loss;
         soft_learn_gauss, lse_pred, svm_loss;
-        soft_learn_min, lse_pred, svm_loss;
+%          soft_learn_min, lse_pred, svm_loss;
         soft_learn_binary, lse_pred, svm_loss
     };
     
     hardAlgorithms = {
         hard_learn_lin, dual_pred, dual_loss;
         hard_learn_gauss, dual_pred, dual_loss;
-        hard_learn_min, dual_pred, dual_loss;
+%          hard_learn_min, dual_pred, dual_loss;
         hard_learn_binary, dual_pred, dual_loss
     };
     
     sigmoidAlgorithms = {
         sigmoid_learn_lin, sigmoid_pred, sigmoid_loss;
         sigmoid_learn_gauss, sigmoid_pred, sigmoid_loss;
-        sigmoid_learn_min, sigmoid_pred, sigmoid_loss;
+%          sigmoid_learn_min, sigmoid_pred, sigmoid_loss;
         sigmoid_learn_binary, sigmoid_pred, sigmoid_loss
     };
     
