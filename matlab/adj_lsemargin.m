@@ -1,4 +1,10 @@
 function [model] = adj_lsemargin(X, y, beta, kernel, varargin)
+    
+    for i = 1:size(y)
+        if y(i) == 0
+            y(i) = -1;
+    end
+
     K = feval(kernel, X, X, varargin);
 
     [t, n] = size(K);
