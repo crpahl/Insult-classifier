@@ -2,8 +2,8 @@
 clear all
 load ../data/data.mat;
 
-trainNum = 150;
-testNum = 200;
+trainNum = 40;
+testNum = 60;
 [mXtrain mytrain] = getSubset(Xtrain, ytrain, trainNum);
 
 [t,k] = size(Xtest);
@@ -28,10 +28,7 @@ svm_learn = @(X, y)adj_lsemargin(X, y, 0.5, linear_kernel);
 svm_classify = @(X, model)adjclassify(X, model);
 loss_svm = @(y, Y)loss_svm(y, Y);
 
-algorithms = {svm_learn, svm_classify, loss_svm;
-	      sigmoid_learn_min, sigmoid_pred, loss_sigmoid;
-	      sigmoid_learn_mult, sigmoid_pred, loss_sigmoid;
-	      sigmoid_learn_add, sigmoid_pred, loss_sigmoid;
+algorithms = {
 	      sigmoid_learn_binary, sigmoid_pred, loss_sigmoid};
 
 tic
