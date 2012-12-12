@@ -62,9 +62,9 @@ function [errors, bestLearner, results, loss, testTime] = bootstrap_test(algorit
     %%%%%%%%%%%%%%%%%
     
     lseAlgorithms = {
-        lse_learn_lin, lse_pred, svm_loss;
+%          lse_learn_lin, lse_pred, svm_loss; DNW
         lse_learn_gauss, lse_pred, svm_loss;
-%          lse_learn_min, lse_pred, svm_loss;
+%          lse_learn_min, lse_pred, svm_loss; DNW
         lse_learn_binary, lse_pred, svm_loss
     };
     
