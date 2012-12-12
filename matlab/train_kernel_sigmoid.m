@@ -12,12 +12,14 @@ function [model] = train_kernel_sigmoid(Xtrain, ytrain, beta, kernel, varargin)
     Ktrain = feval(kernel, Xtrain, Xtrain, varargin);
     [t, t] = size(Ktrain);
     
+    ytrain = offset(ytrain);
+    
     % Classification -> Strong Probability
     for i = 1:t
         if ytrain(i) == 0
-            ytrain(i) = ytrain(i) + 1e-6;
+            ytrain(i) = ytrain(i) + 1e-3;
         else % ytrain(i) == 1
-            ytrain(i) = ytrain(i) - 1e-6;
+            ytrain(i) = ytrain(i) - 1e-3;
         end
     end
 
@@ -37,8 +39,21 @@ function [x] = sigmoid_err(w, H, K, y)
 % sigmoid error = y*log(y/y_hat) + (1-y)*log((1-y)/(1-y_hat))
 
     [t, t] = size(K);
-    y_hat = sigmoid(K*w(1:t) - w(t+1)); % sigmoid(K*w - b)
-
+    y_hat = offset(sigmoid(K*w(1:t) - w(t+1))); % sigmoid(K*w - b)
+    
     x = w'*H*w + y'*log(y./y_hat) + (1-y)'*log((1-y)./(1-y_hat));
 
+end
+
+function [y] = offset(y)
+% Classification -> Strong Probability
+    [t, tmp] = size(y);
+    
+    for i = 1:t
+        if y(i) == 0
+            y(i) = y(i) + 1e-6;
+        elseif y(i) == 1
+            y(i) = y(i) - 1e-6;
+        end
+    end
 end
