@@ -21,7 +21,7 @@ sigmoid_learn_mult = @(X, y) train_kernel_sigmoid(X, y, 0.5, 'bow_kernel', 'mult
 sigmoid_learn_add = @(X, y) train_kernel_sigmoid(X, y, 0.5, 'bow_kernel', 'addition');
 sigmoid_learn_binary = @(X, y) train_kernel_sigmoid(X, y, 0.5, 'bow_kernel', 'binary');
 sigmoid_pred = @(X, model) pred_kernel_sigmoid(X, model); 
-loss_sigmoid = @(y, Y) loss_sigmoid(y, Y);
+loss_sigmoid = @(y, Y) loss_sigmoid(y, Y, 0.666667);
 
 linear_kernel = @(X1, X2)(X1*X2');
 svm_learn = @(X, y)adj_lsemargin(X, y, 0.5, linear_kernel); 
