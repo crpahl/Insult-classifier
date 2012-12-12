@@ -10,10 +10,6 @@ function [yhat] = pred_kernel_sigmoid(Xtest, model)
     [te, n] = size(Xtest);
     Ktest = feval(model{4}, Xtest, model{3}, model{5});
 
-    Ktest
-    model{1}
-    model{2}
-    
     yhat = sigmoid(Ktest*model{1} - model{2}); % z_hat = Ktest*a - b
     
 end

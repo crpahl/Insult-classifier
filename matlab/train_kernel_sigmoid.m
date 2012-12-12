@@ -39,6 +39,8 @@ function [x] = sigmoid_err(w, H, K, y)
     [t, t] = size(K);
     y_hat = sigmoid(K*w(1:t) - w(t+1)); % sigmoid(K*w - b)
 
+    y'*log(y./y_hat) + (1-y)'*log((1-y)./(1-y_hat)
+    
     x = w'*H*w + y'*log(y./y_hat) + (1-y)'*log((1-y)./(1-y_hat));
 
 end
