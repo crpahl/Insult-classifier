@@ -15,9 +15,9 @@ function [model] = train_kernel_sigmoid(Xtrain, ytrain, beta, kernel, varargin)
     % Classification -> Strong Probability
     for i = 1:t
         if ytrain(i) == 0
-            mytrain(i) = ytrain(i) + 1e-6;
+            ytrain(i) = ytrain(i) + 1e-6;
         else % ytrain(i) == 1
-            mytrain(i) = ytrain(i) - 1e-6;
+            ytrain(i) = ytrain(i) - 1e-6;
         end
     end
 
