@@ -232,7 +232,6 @@ Lessons Learned
 \end_layout
 
 \begin_layout Standard
-=======
 \begin_inset CommandInset bibtex
 LatexCommand bibtex
 bibfiles "bibtex"
