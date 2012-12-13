@@ -5,7 +5,7 @@ function [errors, bestLearner, results, loss, testTime] = bootstrap_test(algorit
     %%%%%%%%
 
     % data
-    load ../data/data1.mat;
+    load ../data/data3.mat;
     
     % training sets with equal amounts of insults and noninsults
     [mXtrain mytrain] = getSubset(Xtrain, ytrain, trainSize);
@@ -25,7 +25,7 @@ function [errors, bestLearner, results, loss, testTime] = bootstrap_test(algorit
 
     % lse svm learners
     lse_learn_lin = @(X, y) adj_lsemargin(X, y, 0.5, 'linear_kernel');
-    lse_learn_gauss = @(X, y) adj_lsemargin(X, y, 0.5, 'gauss_kernel', 20);
+    lse_learn_gauss = @(X, y) adj_lsemargin(X, y, 0.5, 'gauss_kernel', 10);
     lse_learn_min = @(X, y) adj_lsemargin(X, y, 0.5, 'bow_kernel', 'min');
     lse_learn_binary = @(X, y) adj_lsemargin(X, y, 0.5, 'bow_kernel', 'binary');
     
@@ -34,13 +34,13 @@ function [errors, bestLearner, results, loss, testTime] = bootstrap_test(algorit
 
     % softmargin svm learners
     soft_learn_lin = @(X, y) adj_softmargin(X, y, 0.5, 'linear_kernel');
-    soft_learn_gauss = @(X, y) adj_softmargin(X, y, 0.5, 'gauss_kernel', 20);
+    soft_learn_gauss = @(X, y) adj_softmargin(X, y, 0.5, 'gauss_kernel', 10);
     soft_learn_min = @(X, y) adj_softmargin(X, y, 0.5, 'bow_kernel', 'min');
     soft_learn_binary = @(X, y) adj_softmargin(X, y, 0.5, 'bow_kernel', 'binary');
     
     % dual hardmargin learners
     hard_learn_lin = @(X, y) dual_hardmargin(X, y, 0.5, 'linear_kernel');
-    hard_learn_gauss = @(X, y) dual_hardmargin(X, y, 0.5, 'gauss_kernel', 20);
+    hard_learn_gauss = @(X, y) dual_hardmargin(X, y, 0.5, 'gauss_kernel', 10);
     hard_learn_min = @(X, y) dual_hardmargin(X, y, 0.5, 'bow_kernel', 'min');
     hard_learn_binary = @(X, y) dual_hardmargin(X, y, 0.5, 'bow_kernel', 'binary');
     
@@ -49,7 +49,7 @@ function [errors, bestLearner, results, loss, testTime] = bootstrap_test(algorit
     
     % sigmoid learners
     sigmoid_learn_lin = @(X, y) train_kernel_sigmoid(X, y, 0.5, 'linear_kernel');
-    sigmoid_learn_gauss = @(X, y) train_kernel_sigmoid(X, y, 0.5, 'gauss_kernel', 20);
+    sigmoid_learn_gauss = @(X, y) train_kernel_sigmoid(X, y, 0.5, 'gauss_kernel', 10);
     sigmoid_learn_min = @(X, y) train_kernel_sigmoid(X, y, 0.5, 'bow_kernel', 'min');
     sigmoid_learn_binary = @(X, y) train_kernel_sigmoid(X, y, 0.5, 'bow_kernel', 'binary');
     
@@ -138,22 +138,22 @@ function [errors, bestLearner, results, loss, testTime] = bootstrap_test(algorit
     };
     
     allAlgorithms = {
-%          lse_learn_lin, lse_pred, svm_loss;
-%          lse_learn_gauss, lse_pred, svm_loss;
-%          lse_learn_min, lse_pred, svm_loss;
-%          lse_learn_binary, lse_pred, svm_loss;
-        soft_learn_lin, lse_pred, svm_loss;
-        soft_learn_gauss, lse_pred, svm_loss;
-%          soft_learn_min, lse_pred, svm_loss;
-%          soft_learn_binary, lse_pred, svm_loss;
-        hard_learn_lin, dual_pred, dual_loss;
-        hard_learn_gauss, dual_pred, dual_loss;
-%          hard_learn_min, dual_pred, dual_loss;
-%          hard_learn_binary, dual_pred, dual_loss;
-        sigmoid_learn_lin, sigmoid_pred, sigmoid_loss;
-        sigmoid_learn_gauss, sigmoid_pred, sigmoid_loss;
-        sigmoid_learn_min, sigmoid_pred, sigmoid_loss;
-        sigmoid_learn_binary, sigmoid_pred, sigmoid_loss
+%         lse_learn_lin, lse_pred, svm_loss;
+          %lse_learn_gauss, lse_pred, svm_loss;
+%         lse_learn_min, lse_pred, svm_loss;
+%         lse_learn_binary, lse_pred, svm_loss;
+%         soft_learn_lin, lse_pred, svm_loss;
+          soft_learn_gauss, lse_pred, svm_loss;
+%         soft_learn_min, lse_pred, svm_loss;
+%         soft_learn_binary, lse_pred, svm_loss;
+%         hard_learn_lin, dual_pred, dual_loss;
+%         hard_learn_gauss, dual_pred, dual_loss;
+%         hard_learn_min, dual_pred, dual_loss;
+%         hard_learn_binary, dual_pred, dual_loss;
+          sigmoid_learn_lin, sigmoid_pred, sigmoid_loss;
+          sigmoid_learn_gauss, sigmoid_pred, sigmoid_loss;
+          sigmoid_learn_min, sigmoid_pred, sigmoid_loss;
+          sigmoid_learn_binary, sigmoid_pred, sigmoid_loss
     };
  
     if strcmp(algorithmSet, 'lse')
