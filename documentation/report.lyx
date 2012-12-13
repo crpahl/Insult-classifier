@@ -531,6 +531,63 @@ Lessons Learned
 \end_layout
 
 \begin_layout Standard
+When we first started planning on how we were deciding what features we
+ were going to implement in our project we never realized it was going to
+ be so difficult.
+ We ended up changing how we implemented the features several times to try
+ to get some decent results.
+ So this leads the team to agree that generating features from text is hard.
+ Our choice of the bag of words model was a decent choice, but it really
+ takes a lot of good pre-processing to be useful which in itself is very
+ hard itself.
+ With more dedicated time we would have explored more feature represent
+ ions that we found in the documents that we read in the literature survey.
+ It would have been nice to venture into tree implementations such as Bayesian
+ additive regression trees(BART)
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Na07acomparison"
+
+\end_inset
+
+, classification and regression trees(CART)
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Na07acomparison"
+
+\end_inset
+
+, and J48
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Li11modelingthe"
+
+\end_inset
+
+.
+ The String Kernel would have been nice to implement as it is supposed to
+ work with a large datasets is very popular in research fields of text and
+ gene analysis.
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Wi12StringKernel"
+
+\end_inset
+
+ Other features that would be great to implement are: sentence length, type
+ of punctuations, sentence appearance(UPPERCASE for yelling), imperative
+ sentences, appearance of offensive words, and the more content-specific
+ features such as race, religion, etc...
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Ch12detectingoffensive"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
 \begin_inset CommandInset bibtex
 LatexCommand bibtex
 bibfiles "bibtex"
