@@ -91,7 +91,6 @@ Abstract
 \end_layout
 
 \begin_layout Standard
-
 Insults and abuse on the Internet is becoming a growing problem as we become
  increasingly connected.
  Anonymity and a lack of supervision has led to an increasing number of
@@ -99,7 +98,7 @@ Insults and abuse on the Internet is becoming a growing problem as we become
  An accurate single-class classifier operating in real-time could automate
  or facilitate the removal of a large number of these insults.
  We would no longer have to completely rely on moderators or the user-base
- to expunge every insult, which will hopefully lead the way to more abuse-free
+ to expunge every insult which will hopefully lead the way to more abuse-free
  discourse on the Internet.
  
 \end_layout
@@ -170,7 +169,7 @@ Literature Survey
 \end_layout
 
 \begin_layout Standard
-After searching the Internet we found ten sites
+After some initial research, we found ten articles
 \begin_inset Foot
 status open
 
@@ -182,9 +181,9 @@ The 10 research articles we found are located in the references below.
 \end_inset
 
  that have done existing work on our problem and most of our approaches.
- Existing work that has already been done on our problem consists of tree
- structures along with different strategies for preprocessing the data.
- Our literature survey will be examining four articles: 
+ Existing work consists of tree structures in addition to different strategies
+ for preprocessing the data.
+ Our literature survey will be focusing on four articles: 
 \begin_inset Quotes eld
 \end_inset
 
@@ -252,7 +251,7 @@ key "Ka12detectingoffensive"
 
 \begin_layout Standard
 The first publication on Bullying in Barcelona demonstrated how “Each dataset
- was subjected to three operations: removal of stop-words, stemming and
+ was subjected to three operations: removal of stop-words, stemming, and
  removal of unimportant sequence of characters.
  Sequences of characters such as ‘@someuser’,’lollllll’,’hahahahaha’, etc.,
  were expunged from the datasets.”
@@ -265,7 +264,7 @@ key "Li11modelingthe"
 .
  We found this particularly useful as we needed to perform similar preprocessing
  steps on our own data set.
- The publication also made some assumptions on sexuality, race and culture,
+ The publication also made some assumptions on sexuality, race, culture,
  and intelligence which adds more fine tuned features to their datasets.
  They stated that these three topics contribute to the validity of correctly
  detecting abuse.
@@ -279,9 +278,9 @@ key "Li11modelingthe"
 \end_inset
 
 .
- The results they obtained when using the combined feature set gave them
- 61% accuracy with a confidence level of .456 which was beat by using a SVM
- which gave 66.7% accuracy with a confidence level of .653.
+ The results they obtained when using the combined feature sets gave them
+ 61% accuracy with a confidence level of .456 which they beat by using a
+ SVM which gave 66.7% accuracy with a confidence level of .653.
  
 \end_layout
 
@@ -296,7 +295,7 @@ Detecting Offensive Language in Social Media to Protect Adolescent On-line
 \begin_inset Quotes erd
 \end_inset
 
- also broke down their feature-set and set them into categories
+ also broke down their feature-set and separated them into categories
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Ch12detectingoffensive"
@@ -319,7 +318,7 @@ key "Li11modelingthe"
 
 \end_inset
 
- they created a specific feature set that consisted of different style,
+, they created a specific feature set that consisted of different style,
  structural and content-specific features
 \begin_inset CommandInset citation
 LatexCommand cite
@@ -328,10 +327,10 @@ key "Ch12detectingoffensive"
 \end_inset
 
 .
- Their main feature representation consisted of using a bag-of-words feature
+ Their main feature representation consisted of using bag-of-words feature
  representation.
  They also used an SVM implementation for learning, and 10-fold cross validation
- to tweak performance.
+ to enhance, and compare performance.
  Their results showed approximately 60% accuracy.
  
 \end_layout
@@ -339,8 +338,8 @@ key "Ch12detectingoffensive"
 \begin_layout Standard
 In the remaining two articles there are two interesting concepts that we
  felt could be applied to our own problem.
- One article states that by discovering different time patterns they were
- able to produce better classification results.
+ One article states that by making use of time patterns they were able to
+ produce better classification results.
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Ow12profanityuse"
@@ -397,9 +396,9 @@ With the first two articles seeing successful results with the bag-of-words
  Both papers used SVM and 10-fold cross validation so we decided to also
  use a margin classifier to give us a good baseline for our testing accuracy.
  Although, instead of 10-fold cross validation we chose to implement bootstrappi
-ng as we decided that it would perform similarly with lesser complexity.
- When choosing features we also decided to eliminate stop-words, sequence
- characters, word frequency, and the time of day in which the comment was
+ng as we decided that it would perform similarly with less complexity.
+ When choosing features we also decided to eliminate stop-words, long character
+ sequences, word frequency, and the time of day in which the comment was
  posted.
 \end_layout
 
@@ -499,7 +498,7 @@ Once the words we have been tokenized, we spell check each word returned
  from the tokenizer to insure that any misspelled words will be represented
  as the same feature.
  We then use the Levenshtein distance for each misspelled word that has
- been corrected by the spell checker to ensure that the spell checked word
+ been corrected by the spell checker to insure that the spell checked word
  is similar enough to the original misspelled word to be a useful feature.
  The Levenshtein distance is a simple string metric that is used to measure
  the distance between two strings.
@@ -542,7 +541,7 @@ We found that any spell checked word with a Levenshtein distance greater
 \series bold
 Feature Selection
 \series default
- After the comments have been preprocessed we use the bag-of-words model
+ After the comments have been preprocessed we use the bag of words model
  as our feature representation for our testing and training sets.
  In the bag of words model, each of our comments is represented as an unordered
  collection of words, where the frequency of each word is used as a feature
@@ -653,7 +652,7 @@ status open
 This dictionary now contains 10 distinct words which gets translated into
  a simple vector of size (1,10) which is now the feature representation
  for each sentence.
- With two sentences you will have a matrix of size (2,10) which will now
+ With two sentences there will be a matrix of size (2,10) which will now
  contain the word count at each index of the vector:
 \end_layout
 
@@ -690,11 +689,11 @@ You may notice that after the conversion we increment how many times the
 \end_layout
 
 \begin_layout Standard
-We found that bag of words generates too many features for each comment
+We found that bag-of-words generates too many features for each comment
  (~15000).
  So we took an approach that has been commonly used for text classification:
  using only a certain numbers of the most frequent words that occur across
- all comments for the bag of words model.
+ all comments for the bag-of-words model.
  Using this method we can choose the number of features (words) that we
  want to represent for the comments.
 \end_layout
@@ -739,8 +738,8 @@ Lets take the format YYYYMMDDhhmmss from which we use the month(MM) and
  We take this information and represent which day of the week and hour the
  comment was created on.
  We then create a vector of size (31,1) where the first 7 cells represent
- the weekday(s,m,t,w,th,f,s) and the other 24 cells represent the time of
- day.
+ the weekday(s,m,t,w,th,f,s) and the other 24 cells represent the hour of
+ the day that the comment occurred on.
  Below shows a graphical conversion:
 \end_layout
 
@@ -806,10 +805,10 @@ and the sigmoid loss
 
 \begin_layout Standard
 to learn on a probability scale.
- However, to prevent divisions by zero, we provide slight offsets of 1E-6
+ However, to prevent divisions by zero, we provide slight offsets of 1e-6
  to the given y training vector.
  Classification is done using a confidence level at which any result with
- a probability about that level is classified as an insult.
+ a probability above that level is classified as an insult.
 \end_layout
 
 \begin_layout Standard
@@ -955,6 +954,11 @@ Feature Expansion
  It did not require a database of words or a very complex algorithm to create
  useful features, and there existed libraries to assist in easy generation
  of a bag-of-words model.
+\end_layout
+
+\begin_layout Standard
+Also, time could be a useful feature because times when youth are most active
+ on the Internet should result in more insults.
 \end_layout
 
 \begin_layout Standard
@@ -2668,7 +2672,7 @@ And finally, to test our learner and data set more concretely we did one
  It was not definitive which combination of learner and data set was best
  from our bootstrapping results so we decided to run the final test on the
  data set used to get the results in the 4th table with the sigmoid learner
- with a linear kernel since it produced good results in a reasonable time:
+ using a linear kernel since it produced good results in a reasonable time:
 \end_layout
 
 \begin_layout Standard
@@ -2789,8 +2793,7 @@ The results returned from our experiments definitely answered some of the
 From the second table we were also able to show that by keeping only a certain
  number of the most frequent bag-of-word features, we were able to significantly
  increase the performance of the learning algorithms in comparison to the
- first test that used an unmodified bag-of-words feature representation
- which.
+ first test that used an unmodified bag-of-words feature representation.
  This test was not able to complete in a reasonable time -- most likely
  because there we simply too many features for the kernelized version to
  provide the learner with useful similarities between each entry in the
