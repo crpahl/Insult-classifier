@@ -91,14 +91,14 @@ Abstract
 \end_layout
 
 \begin_layout Standard
-Insults and abuse on the Internet becoming a growing problem as we become
+Insults and abuse on the Internet are becoming a growing problem as we become
  increasingly connected.
  Anonymity and a lack of supervision has led to an increasing number of
  insults in forums that try to promote communication.
  An accurate single-class classifier operating in real-time could automate
  or facilitate the removal of a large number of these insults.
  We would no longer have to completely rely on moderators or the user-base
- to expunge every insult which will hopefully lead the way to more abuse-free
+ to expunge every insult, which will hopefully lead the way to more abuse-free
  discourse on the Internet.
  
 \end_layout
@@ -266,7 +266,7 @@ key "Li11modelingthe"
  steps on our own data set.
  The publication also made some assumptions on sexuality, race and culture,
  and intelligence which adds more fine tuned features to their datasets.
- They Stated that these three topics contribute to the validity of correctly
+ They stated that these three topics contribute to the validity of correctly
  detecting abuse.
  Their experiment exercised a poly-2 kernel and the popular J48 decision
  tree based classifier which implements a 10-fold cross validation for the
@@ -327,7 +327,7 @@ key "Ch12detectingoffensive"
 \end_inset
 
 .
- Their main feature representation consisted of using Bag of Words feature
+ Their main feature representation consisted of using a bag-of-words feature
  representation.
  They also used an SVM implementation for learning, and 10-fold cross validation
  to tweak performance.
@@ -501,7 +501,7 @@ Once the words we have been tokenized, we spell check each word returned
  from the tokenizer to insure that any misspelled words will be represented
  as the same feature.
  We then use the Levenshtein distance for each misspelled word that has
- been corrected by the spell checker to insure that the spell checked word
+ been corrected by the spell checker to ensure that the spell checked word
  is similar enough to the original misspelled word to be a useful feature.
  The Levenshtein distance is a simple string metric that is used to measure
  the distance between two strings.
@@ -544,7 +544,7 @@ We found that any spell checked word with a Levenshtein distance greater
 \series bold
 Feature Selection
 \series default
- After the comments have been preprocessed we use the bag of words model
+ After the comments have been preprocessed we use the bag-of-words model
  as our feature representation for our testing and training sets.
  In the bag of words model, each of our comments is represented as an unordered
  collection of words, where the frequency of each word is used as a feature
@@ -781,7 +781,7 @@ Learners
  To classify the insults, we implement a variety of learners and kernel
  transformations.
  Because the original Kaggle description of the problem requires a probability
- as a result we use a sigmoid loss margin learner as one of our algorithms.
+ as a result, we use a sigmoid loss margin learner as one of our algorithms.
  We use the sigmoid transformation
 \end_layout
 
@@ -807,7 +807,7 @@ and the sigmoid loss
 
 \begin_layout Standard
 to learn on a probability scale.
- However, to prevent divisions by zero, we provide slight offsets of 1e-6
+ However, to prevent divisions by zero, we provide slight offsets of 1E-6
  to the given y training vector.
  Classification is done using a confidence level at which any result with
  a probability about that level is classified as an insult.
@@ -956,11 +956,6 @@ Feature Expansion
  It did not require a database of words or a very complex algorithm to create
  useful features, and there existed libraries to assist in easy generation
  of a bag-of-words model.
-\end_layout
-
-\begin_layout Standard
-Also, time could be a useful feature because times when youth are most active
- on the Internet should result in more insults.
 \end_layout
 
 \begin_layout Standard
