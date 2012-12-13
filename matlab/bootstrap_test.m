@@ -62,7 +62,7 @@ function [errors, bestLearner, results, loss, testTime] = bootstrap_test(algorit
     %%%%%%%%%%%%%%%%%
     
     lseAlgorithms = {
-%          lse_learn_lin, lse_pred, svm_loss; DNW
+%          lse_learn_lin, lse_pred, svm_loss;
         lse_learn_gauss, lse_pred, svm_loss;
 %          lse_learn_min, lse_pred, svm_loss; DNW
 %          lse_learn_binary, lse_pred, svm_loss
@@ -86,7 +86,7 @@ function [errors, bestLearner, results, loss, testTime] = bootstrap_test(algorit
         sigmoid_learn_lin, sigmoid_pred, sigmoid_loss;
         sigmoid_learn_gauss, sigmoid_pred, sigmoid_loss;
 %          sigmoid_learn_min, sigmoid_pred, sigmoid_loss;
-%          sigmoid_learn_binary, sigmoid_pred, sigmoid_loss
+        sigmoid_learn_binary, sigmoid_pred, sigmoid_loss
     };
     
     linAlgorithms = {
@@ -138,18 +138,18 @@ function [errors, bestLearner, results, loss, testTime] = bootstrap_test(algorit
     };
     
     allAlgorithms = {
-        lse_learn_lin, lse_pred, svm_loss;
-        lse_learn_gauss, lse_pred, svm_loss;
-        lse_learn_min, lse_pred, svm_loss;
-        lse_learn_binary, lse_pred, svm_loss;
+%          lse_learn_lin, lse_pred, svm_loss;
+%          lse_learn_gauss, lse_pred, svm_loss;
+%          lse_learn_min, lse_pred, svm_loss;
+%          lse_learn_binary, lse_pred, svm_loss;
         soft_learn_lin, lse_pred, svm_loss;
         soft_learn_gauss, lse_pred, svm_loss;
-        soft_learn_min, lse_pred, svm_loss;
-        soft_learn_binary, lse_pred, svm_loss;
+%          soft_learn_min, lse_pred, svm_loss;
+%          soft_learn_binary, lse_pred, svm_loss;
         hard_learn_lin, dual_pred, dual_loss;
         hard_learn_gauss, dual_pred, dual_loss;
-        hard_learn_min, dual_pred, dual_loss;
-        hard_learn_binary, dual_pred, dual_loss;
+%          hard_learn_min, dual_pred, dual_loss;
+%          hard_learn_binary, dual_pred, dual_loss;
         sigmoid_learn_lin, sigmoid_pred, sigmoid_loss;
         sigmoid_learn_gauss, sigmoid_pred, sigmoid_loss;
         sigmoid_learn_min, sigmoid_pred, sigmoid_loss;
@@ -201,20 +201,20 @@ function [errors, bestLearner, results, loss, testTime] = bootstrap_test(algorit
     %%%%%%%%%%
     % Testing:
     %%%%%%%%%%
-    
-    tic
-    
-    model = bestLearner(mXtrain, mytrain);
-    yhat = classifier(mXtest, model);
-    loss = lossFunction(yhat, mytest);
-    
-    testTime(1) = toc;
-    
-    results = [mytest yhat];
-    results
-    loss
-    
-    testTime
+%      
+%      tic
+%      
+%      model = bestLearner(mXtrain, mytrain);
+%      yhat = classifier(mXtest, model);
+%      loss = lossFunction(yhat, mytest);
+%      
+%      testTime(1) = toc;
+%      
+%      results = [mytest yhat];
+%      results
+%      loss
+%      
+%      testTime
     
     
     %%%%%%%%%%%%%%
@@ -223,6 +223,6 @@ function [errors, bestLearner, results, loss, testTime] = bootstrap_test(algorit
     
     filename = strcat('bootstrap-test-results-', algorithmSet, '-', datestr(now), '.mat');
     
-    save(filename, 'errors', 'trainTimes', 'bestLearner', 'classifier', 'lossFunction', 'results', 'loss', 'testTime');
+    save(filename, 'errors', 'trainTimes', 'bestLearner', 'classifier', 'lossFunction');%, 'results', 'loss', 'testTime');
     
 end
