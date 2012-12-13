@@ -781,7 +781,7 @@ In addition to the sigmoid-margin learner, we use the log-sum-exp-margin,
  All learners are in their kernelized forms because the large amount of
  features creates prohibitively sized matrices.
  And, all learners are also regularized because the problem statement on
- Kaggle mentions that overfitting is often an issue.
+ Kaggle mentions that over-fitting is often an issue.
 \end_layout
 
 \begin_layout Standard
@@ -789,9 +789,9 @@ In addition to the sigmoid-margin learner, we use the log-sum-exp-margin,
 \series bold
 Kernels
 \series default
- We use linear, gaussian, and bag-of-words kernels in our learners to determine
+ We use linear, Gaussian, and bag-of-words kernels in our learners to determine
  the best algorithm for this problem.
- The linear and gaussian kernels are implemented as in the assignments.
+ The linear and Gaussian kernels are implemented as in the assignments.
  Our bag-of-words kernels comes in two forms:
 \end_layout
 
@@ -1136,7 +1136,7 @@ linear kernel
 \end_layout
 
 \begin_layout Itemize
-gaussian kernel with a sigma value of 20
+Gaussian kernel with a sigma value of 20
 \end_layout
 
 \begin_layout Itemize
