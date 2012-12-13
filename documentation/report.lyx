@@ -175,6 +175,88 @@ Literature Survey
 (past tense)
 \end_layout
 
+\begin_layout Standard
+After searching the internet we found ten sites that have done a study on
+ the same topic or very close to the same topics.
+ Existing work that has already been done on our problem consists of using
+ different kinds of tree structures along with several different ways of
+ preprocessing the data.
+ Our literature survery will be mention two articles: Detecting Offensive
+ Language in Social Media to Protect Adolescent Online Safety(Bullying in
+ Barcelona) and Detecting Offensive Language in Social Media to Protect.
+ These articles use methods that are interesting and worth investigating.
+\end_layout
+
+\begin_layout Standard
+The first publication on Bullying in Barcelona demonstrated how 
+\begin_inset Quotes eld
+\end_inset
+
+Each dataset was subjected to three operations: removal of stop-words, stemming
+ and removal of unimportant sequence of characters.
+ Sequences of characters such as ‘@someuser’,’lollllll’,’hahahahaha’, etc.,
+ were expunged from the datasets.
+\begin_inset Quotes erd
+\end_inset
+
+
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Li11modelingthe"
+
+\end_inset
+
+.
+ The publication also made some assumptions on sexuality, race and culture,
+ and intelligence.
+ Stating that these three topics contribute to the validity of correctly
+ detecting abuse.
+ They used a poly-2 kernel and the popular J48 decision tree based classifier.
+ They also implemented 10-fold cross validation for the experiments they
+ performed.
+ The results they obtained when using the combined featureset gave them
+ 61% accuracy with a confidence level of .456 which was beat by using SVM
+ which the results of 66.7% accuracy with a confidence level of .653.
+ So to conclude their research showed that the SVM was proven to be the
+ most reliable as it had the higher confidence level.
+\end_layout
+
+\begin_layout Standard
+The research done by Ying Chen, Heng Xu, Heng Xu in the their article called
+ 
+\begin_inset Quotes eld
+\end_inset
+
+Detecting Offensive Language in Social Media to Protect Adolescent Online
+ Safety
+\begin_inset Quotes erd
+\end_inset
+
+ broke down more features and set them into categories.
+ Just like the publication on 
+\begin_inset Quotes eld
+\end_inset
+
+Bullying in Barcelona
+\begin_inset Quotes erd
+\end_inset
+
+ they created a specific feature set that consisted different style, structural
+ and content-specific features.
+ Their methods consists of using Bag of Words for preprocessing, as well
+ as SVM and 10-fold cross validation.
+ Their results consisted about ~60% return on their learner.
+ 
+\end_layout
+
+\begin_layout Standard
+With both articles chosing to use bag of words we thought it was of best
+ interest to implment a method of our own.
+ Both papers used SVM and 10-fold cross validation so we decided to go ahead
+ with SVM, but instead of 10-fold cross validation we chose to implement
+ bootstrapping as we thought it would perform better with lesser complexity.
+\end_layout
+
 \begin_layout Section
 Approach
 \end_layout
