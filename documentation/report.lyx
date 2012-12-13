@@ -91,7 +91,7 @@ Abstract
 \end_layout
 
 \begin_layout Standard
-Insults and abuse on the Internet is becoming a growing problem as we become
+Insults and abuse on the Internet becoming a growing problem as we become
  increasingly connected.
  Anonymity and a lack of supervision has led to an increasing number of
  insults in forums that try to promote communication.
@@ -125,7 +125,7 @@ The goal is to create a single-class classifier that can determine if a
  may or may not contain profanity, racial slurs, or other offensive language.
  In addition, a comment that contains offensive language, but is not insulting
  to another participant in the conversation will not be considered insulting.
- Also, The insults that we are attempting to classify will not be subtle
+ Also, the insults that we are attempting to classify will not be subtle
  (such as insults using sarcasm, or Internet memes).
 \end_layout
 
@@ -139,7 +139,8 @@ key "Im12detectinginsults"
 \end_inset
 
 : a website that hosts predictive modeling competitions.
- The data set consists of a training and testing set.
+ The data set consists of a training set containing 3948 entries and testing
+ set containing 2648 entries.
  Each entry in the training and testing set has a time attribute in the
  form 
 \begin_inset Quotes eld
@@ -179,34 +180,64 @@ The 10 research articles we found are located in the bibliography.
 
 \end_inset
 
- that have done a study on the same topic or very close to the same topics.
- Existing work that has already been done on our problem consists of using
- different kinds of tree structures along with several different ways of
- preprocessing the data.
- Our literature survey will be mention four articles: M2odeling the Detection
- of Textual Cyber bullying
+ that have done existing work on our problem and most of our approaches.
+ Existing work that has already been done on our problem consists of tree
+ structures along with different strategies for preprocessing the data.
+ Our literature survey will be examining four articles: 
+\begin_inset Quotes eld
+\end_inset
+
+Modeling the Detection of Textual Cyber Bullying
+\begin_inset Quotes erd
+\end_inset
+
+
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Li11modelingthe"
 
 \end_inset
 
-, Detecting Offensive Language in Social Media to Protect Adolescent On-line
+, 
+\begin_inset Quotes eld
+\end_inset
+
+Detecting Offensive Language in Social Media to Protect Adolescent On-line
  Safety(Bullying in Barcelona)
+\begin_inset Quotes erd
+\end_inset
+
+
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Ch12detectingoffensive"
 
 \end_inset
 
-, Big data as a tool for detecting (and punishing?) bullies
+, 
+\begin_inset Quotes eld
+\end_inset
+
+Big Data as a Tool for Detecting (and punishing?) Bullies
+\begin_inset Quotes erd
+\end_inset
+
+
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Ow12profanityuse"
 
 \end_inset
 
-, and Offensive Language Detection Using Multi-level Classification
+, and 
+\begin_inset Quotes eld
+\end_inset
+
+Offensive Language Detection Using Multi-level Classification
+\begin_inset Quotes erd
+\end_inset
+
+
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Ka12detectingoffensive"
@@ -214,7 +245,8 @@ key "Ka12detectingoffensive"
 \end_inset
 
 .
- These articles use methods that are interesting and worth investigating.
+ These articles use methods that we felt would be worth investigating for
+ approaches that we could apply to our own problem.
 \end_layout
 
 \begin_layout Standard
@@ -230,31 +262,31 @@ key "Li11modelingthe"
 \end_inset
 
 .
+ We found this particularly useful as we needed to perform similar preprocessing
+ steps on our own data set.
  The publication also made some assumptions on sexuality, race and culture,
- and intelligence which adds more fine tuning features to their preprocessing
- of the datasets.
- Stating that these three topics contribute to the validity of correctly
+ and intelligence which adds more fine tuned features to their datasets.
+ They Stated that these three topics contribute to the validity of correctly
  detecting abuse.
  Their experiment exercised a poly-2 kernel and the popular J48 decision
  tree based classifier which implements a 10-fold cross validation for the
- experiments they performed.
+ experiments they performed
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Li11modelingthe"
 
 \end_inset
 
+.
  The results they obtained when using the combined feature set gave them
- 61% accuracy with a confidence level of .456 which was beat by using SVM
- which the results of 66.7% accuracy with a confidence level of .653.
- So to conclude their research showed that the SVM was proven to be the
- most reliable as it had the higher confidence level.
+ 61% accuracy with a confidence level of .456 which was beat by using a SVM
+ which gave 66.7% accuracy with a confidence level of .653.
  
 \end_layout
 
 \begin_layout Standard
-The research done by Ying Chen, Heng Xu, Heng Xu in the their article called
- 
+The research done by Ying Chen et al.
+ in the their article 
 \begin_inset Quotes eld
 \end_inset
 
@@ -263,13 +295,14 @@ Detecting Offensive Language in Social Media to Protect Adolescent On-line
 \begin_inset Quotes erd
 \end_inset
 
- broke down more features and set them into categories.
+ also broke down their feature-set and set them into categories
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Ch12detectingoffensive"
 
 \end_inset
 
+.
  Just like the publication on 
 \begin_inset Quotes eld
 \end_inset
@@ -285,24 +318,28 @@ key "Li11modelingthe"
 
 \end_inset
 
- they created a specific feature set that consisted different style, structural
- and content-specific features.
+ they created a specific feature set that consisted of different style,
+ structural and content-specific features
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Ch12detectingoffensive"
 
 \end_inset
 
- Their methods consists of using Bag of Words for preprocessing, as well
- as SVM and 10-fold cross validation.
- Their results consisted about ~60% return on their learner.
+.
+ Their main feature representation consisted of using Bag of Words feature
+ representation.
+ They also used an SVM implementation for learning, and 10-fold cross validation
+ to tweak performance.
+ Their results showed approximately 60% accuracy.
  
 \end_layout
 
 \begin_layout Standard
-In the remaining two articles there interesting points which 1) states that
- discovering different time patterns they were able to get better detection
- results.
+In the remaining two articles there are two interesting concepts that we
+ felt could be applied to our own problem.
+ One article states that by discovering different time patterns they were
+ able to produce better classification results.
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Ow12profanityuse"
@@ -324,8 +361,8 @@ key "Ow12profanityuse"
 
 \end_inset
 
- there was way more on-line abuse compared to other times.
- 2) The use of word/phrase frequency was brought up in the last article
+ there was a higher rate of on-line abuse compared to other times of the
+ day.The use of word/phrase frequency was brought up in the last article
  we researched.
  Their accuracy is mentioned to be 
 \begin_inset Quotes eld
@@ -342,7 +379,7 @@ key "Ka12detectingoffensive"
 
 \end_inset
 
- which has an accuracy of approximately 68%.
+ which resulted in their tests having an accuracy of approximately 68%.
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Ka12detectingoffensive"
@@ -353,11 +390,13 @@ key "Ka12detectingoffensive"
 \end_layout
 
 \begin_layout Standard
-With the first two articles choosing to use bag of words we thought it was
- of best interest to implement a method of our own.
- Both papers used SVM and 10-fold cross validation so we decided to go ahead
- with SVM, but instead of 10-fold cross validation we chose to implement
- bootstrapping as we thought it would perform better with lesser complexity.
+With the first two articles seeing successful results with the bag-of-words
+ feature set, we decided that this would be a good implementation to use
+ in our own project.
+ Both papers used SVM and 10-fold cross validation so we decided to also
+ use a margin classifier to give us a good baseline for our testing accuracy.
+ Although, instead of 10-fold cross validation we chose to implement bootstrappi
+ng as we decided that it would perform similarly with lesser complexity.
  When choosing features we also decided to eliminate stop-words, sequence
  characters, word frequency, and the time of day in which the comment was
  posted.
