@@ -5,8 +5,8 @@ function [errors, bestLearner, results, loss, testTime] = bootstrap_test(algorit
     %%%%%%%%
 
     % data
-    load ../data/data.mat;
-
+    load ../data/data1.mat;
+    
     % training sets with equal amounts of insults and noninsults
     [mXtrain mytrain] = getSubset(Xtrain, ytrain, trainSize);
 
