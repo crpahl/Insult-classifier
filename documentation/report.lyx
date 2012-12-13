@@ -369,7 +369,10 @@ common word count bag-of-words kernel
 
 \begin_layout Standard
 All tests were run with a beta regularizer of 0.5 to deal with overfitting.
- 
+\end_layout
+
+\begin_layout Standard
+We ran all the tests on the computers in the Database and AI lab.
 \end_layout
 
 \begin_layout Section
@@ -381,9 +384,11 @@ Results
 \end_layout
 
 \begin_layout Standard
-The only combination not tested was the linear kernel with the adjoint log-sum-e
-xp-margin classifier since the Matlab optimizer could not solve this problem
- without crashing.
+The combinations of the linear kernel and common word count bag-of-words
+ kernel with the adjoint log-sum-exp-margin classifier since the Matlab
+ optimizers could not solve these problems without crashing.
+ Additionally, both bag-of-words kernels did not complete after 3 hours
+ of time 
 \end_layout
 
 \begin_layout Section
