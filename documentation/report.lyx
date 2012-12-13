@@ -91,7 +91,7 @@ Abstract
 \end_layout
 
 \begin_layout Standard
-Insults and abuse on the internet is becoming a growing problem as we become
+Insults and abuse on the Internet is becoming a growing problem as we become
  increasingly connected.
  Anonymity and a lack of supervision has led to an increasing number of
  insults in forums that try to promote communication.
@@ -99,7 +99,7 @@ Insults and abuse on the internet is becoming a growing problem as we become
  or facilitate the removal of a large number of these insults.
  We would no longer have to completely rely on moderators or the user-base
  to expunge every insult which will hopefully lead the way to more abuse-free
- discourse on the internet.
+ discourse on the Internet.
  
 \end_layout
 
@@ -126,7 +126,7 @@ The goal is to create a single-class classifier that can determine if a
  In addition, a comment that contains offensive language, but is not insulting
  to another participant in the conversation will not be considered insulting.
  Also, The insults that we are attempting to classify will not be subtle
- (such as insults using sarcasm, or internet memes).
+ (such as insults using sarcasm, or Internet memes).
 \end_layout
 
 \begin_layout Standard
@@ -378,15 +378,6 @@ Approach
 \end_layout
 
 \begin_layout Standard
-\begin_inset Graphics
-	filename approach.png
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
 Our approach involves a series of stages which involve: preprocessing the
  data to remove any “noise” that will prevent us from creating useful features;
  extracting features from the comments and the time provided for each comment;
@@ -398,6 +389,49 @@ Our approach involves a series of stages which involve: preprocessing the
 
  of how confident we are that each comment in the test set is an insult.
  The figure below summarizes our approach.
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Box Boxed
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "400pt"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename approach.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\size scriptsize
+Figure 1: Here is a diagram of our approach that involves a series of stages.
+\end_layout
+
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -600,10 +634,18 @@ This dictionary now contains 10 distinct words which gets translated into
 \end_layout
 
 \begin_layout Plain Layout
-You may notice that after the conversion we increment many times the word
- has occurred at the index where the word exists.
+You may notice that after the conversion we increment how many times the
+ word has occurred at the index of the word in the dictionary.
 \end_layout
 
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Newline newline
 \end_inset
 
 
@@ -690,9 +732,9 @@ Lets take the format YYYYMMDDhhmmss which we use the month(MM) and the day(DD).
 \end_inset
 
 
-\end_layout
+\begin_inset Newline newline
+\end_inset
 
-\begin_layout Standard
 
 \series bold
 Learners
@@ -852,7 +894,7 @@ Feature Expansion
 
 \begin_layout Standard
 Also, time could be a useful feature because times when youth are most active
- on the internet should result in more insults.
+ on the Internet should result in more insults.
 \end_layout
 
 \begin_layout Standard
@@ -887,7 +929,7 @@ Kernels
 \end_layout
 
 \begin_layout Standard
-In addition, the linear and gaussian kernels are a common baseline, and
+In addition, the linear and Gaussian kernels are a common baseline, and
  could give us interesting insight into the form of the data if they prove
  useful.
 \end_layout
@@ -941,7 +983,7 @@ Removing stop words
 Levenshtein distance
 \series default
  Levenshtein distance is very useful in reducing the probability that the
- spell check preprocessing gives bad replacements of misspelt words, thus
+ spell check preprocessing gives bad replacements of misspelled words, thus
  transferring bad features to the learners
 \end_layout
 
@@ -965,9 +1007,12 @@ Kernels
  two comments share a word.
  This kernel is also not significantly slower than the binary bag-of-words
  kernel.
- In addition, the linear and gaussian kernels are not superior to the bag-of-wor
+ In addition, the linear and Gaussian kernels are not superior to the bag-of-wor
 ds kernels because the feature expansion is suited especially to the bag-of-word
 s kernels.
+ A Gaussian feature expansion will not produce better results than a linear
+ kernel since the data that is being classified is in a very high dimensional
+ space and should be easily separable without having to use a feature expansion.
 \end_layout
 
 \begin_layout Standard
@@ -977,7 +1022,7 @@ Learners
 \series default
  The sigmoid-margin learners are more accurate in determining if a comment
  is an insult.
- Since overfitting is a significant problem, using a confidence level to
+ Since over-fitting is a significant problem, using a confidence level to
  allow classification of insults is a better solution for this problem than
  relying solely on the beta regularizer.
 \end_layout
@@ -1076,7 +1121,7 @@ common word count bag-of-words kernel
 \end_layout
 
 \begin_layout Standard
-All tests were run with a beta regularizer of 0.5 to deal with overfitting.
+All tests were run with a beta regularizer of 0.5 to deal with over-fitting.
 \end_layout
 
 \begin_layout Standard
@@ -1096,8 +1141,8 @@ Results
 \begin_layout Standard
 The following tables display the results seen from the above experiments
  specified in “Experimental Design”.
- Each column lists the loss (misclassification errors) and the running time
- for the corresponding learning algorithms.
+ Each column lists the loss (misclassification errors) and the running time(in
+ seconds) for the corresponding learning algorithms.
  Subsets of 300 training inputs containing an equal number of insults and
  non-insults were used by the bootstrapping algorithm to produce the following
  results:
@@ -1146,7 +1191,7 @@ status open
 \begin_layout Plain Layout
 
 \size scriptsize
-adj lsemargin
+adj lse-margin
 \end_layout
 
 \end_inset
@@ -1157,7 +1202,7 @@ adj lsemargin
 \begin_layout Plain Layout
 
 \size scriptsize
-adj softmargin
+adj soft-margin
 \end_layout
 
 \end_inset
@@ -1427,7 +1472,7 @@ status open
 \begin_layout Plain Layout
 
 \size scriptsize
-adj lsemargin
+adj lse-margin
 \end_layout
 
 \end_inset
@@ -1438,7 +1483,7 @@ adj lsemargin
 \begin_layout Plain Layout
 
 \size scriptsize
-adj softmargin
+adj soft-margin
 \end_layout
 
 \end_inset
@@ -1718,7 +1763,7 @@ status open
 \begin_layout Plain Layout
 
 \size scriptsize
-adj lsemargin
+adj lse-margin
 \end_layout
 
 \end_inset
@@ -1729,7 +1774,7 @@ adj lsemargin
 \begin_layout Plain Layout
 
 \size scriptsize
-adj softmargin
+adj soft-margin
 \end_layout
 
 \end_inset
@@ -2009,7 +2054,7 @@ status open
 \begin_layout Plain Layout
 
 \size scriptsize
-adj lsemargin
+adj lse-margin
 \end_layout
 
 \end_inset
@@ -2020,7 +2065,7 @@ adj lsemargin
 \begin_layout Plain Layout
 
 \size scriptsize
-adj softmargin
+adj soft-margin
 \end_layout
 
 \end_inset
@@ -2246,7 +2291,7 @@ Table 4: Result of learners run on a data set using the following features
 
 \size scriptsize
 Bag-of-words; 3000 most frequent bag-of-words features; stop words removed;
- levenshtein distance of 3.
+ Levenshtein distance of 3.
 \end_layout
 
 \end_inset
@@ -2301,7 +2346,7 @@ status open
 \begin_layout Plain Layout
 
 \size scriptsize
-adj lsemargin
+adj lse-margin
 \end_layout
 
 \end_inset
@@ -2312,7 +2357,7 @@ adj lsemargin
 \begin_layout Plain Layout
 
 \size scriptsize
-adj softmargin
+adj soft-margin
 \end_layout
 
 \end_inset
@@ -2538,7 +2583,7 @@ Table 5: Result of learners run on a data set using the following features
 
 \size scriptsize
 Bag-of-words; 3000 most frequent bag-of-words features; stop words removed;
- levenshtein distance of 3; time features added.
+ Levenshtein distance of 3; time features added.
 \end_layout
 
 \end_inset
@@ -2669,15 +2714,75 @@ Critical Evaluation
 \end_layout
 
 \begin_layout Standard
-(present tense)
+The results returned from our experiments definitely answered some of the
+ questions raised in our hypotheses, but at the same time provided some
+ very unclear and unintuitive results.One question that appears to have been
+ answered definitively is that the bag-of-words feature representation can
+ in fact be used to accurately represent the similarities between comments.
+ We were able to produce results that were substantially better than random
+ choice across every data set.
+\end_layout
+
+\begin_layout Standard
+From the second table we were also able to show that by keeping only a certain
+ number of the most frequent bag-of-word features we were able to significantly
+ increase the performance of the learning algorithms as the first test that
+ used an unmodified bag-of-words feature representation was not able to
+ complete in a reasonable time -- most likely because there we simply too
+ many features for the kernelized version to tell the learner anything useful
+ about the similarities between each entry in the training set.
+\end_layout
+
+\begin_layout Standard
+The third table shows a surprisingly unintuitive result: Using the Levenshtein
+ distance to remove poor spell checking suggestions both increased the running
+ time and the loss returned from the sigmoid learning algorithms.
+ This result is surprising because the Levenshtein distance should have
+ strengthened the words being returned for the bag-of-words feature representati
+on creating a clearer similarity between both insulting and non-insulting
+ comments.
+ One possible reason for this result could in fact be due to the data set
+ that we used for the 5 separate experiments.
+ The data set across all 5 experiments consisted of 300 entries containing
+ an equal number of insults and non-insults, but we made one unforeseen
+ mistake while setting up these experiments: each data set of 300 entries
+ was randomly generated for each experiment.
+ In retrospect, using 5 different randomly generated data sets did not allow
+ us to evaluate our hypotheses as accurately as if we had used the same
+ data set across all 5 experiments.
+ The discrepancy in the loss between tables 3 and 4 is still somewhat surprising
+, but can also be explained by the relatively small training size.
+ Given more time, we should supply a larger data set to our bootstrapping
+ algorithm to generate more concrete results.
+\end_layout
+
+\begin_layout Standard
+The same issue were seen for the data set containing the time features.
+ This could explained by the same reasoning as above.
+ Or it could simply be that there is no relevant correlation between the
+ frequency of insults and the time of day.
+ We are still convinced that there will be some correlation, and would require
+ more testing to investigate this further.
+ One possible refinement could be to make the feature more discreet: instead
+ of using hours of the day, we could indicate whether the comment occur
+ during the morning, afternoon, or evening which might more clearly reflect
+ people’s surfing habits.
+\end_layout
+
+\begin_layout Standard
+It is also clear from the tables above that the Gaussian kernel was not
+ useful for classifying the given data, and in most cases tended to over-fit
+ resulting in classifications that were worse than random choice.
+ Since over-fitting did appear to be somewhat of a problem, using a confidence
+ interval did allow us to produce better results in some cases.
+ Although the results were not conclusive enough to determine if that approach
+ is the best choice.
+ And some additional testing on larger data sets would be needed to conclusively
+ determine if it’s more effective to use a confidence interval.
 \end_layout
 
 \begin_layout Section
 Lessons Learned
-\end_layout
-
-\begin_layout Standard
-(present tense)
 \end_layout
 
 \begin_layout Standard
