@@ -91,10 +91,6 @@ Abstract
 \end_layout
 
 \begin_layout Standard
-(present tense)
-\end_layout
-
-\begin_layout Standard
 Insults and abuse on the internet is becoming a growing problem as we become
  increasingly connected.
  Anonymity and a lack of supervision has led to an increasing number of
@@ -109,10 +105,6 @@ Insults and abuse on the internet is becoming a growing problem as we become
 
 \begin_layout Section
 Problem
-\end_layout
-
-\begin_layout Standard
-(present tense)
 \end_layout
 
 \begin_layout Standard
@@ -153,16 +145,16 @@ key "Im12detectinginsults"
 \begin_inset Quotes eld
 \end_inset
 
-YYYMMDDhhmmss
+YYYYMMDDhhmmss
 \begin_inset Quotes erd
 \end_inset
 
 , and the corresponding comment.
  The time is on a 24 hour clock corresponding to when the comment was made.
- The comments are mostly english language comments, compiled from various
+ The comments are mostly English language comments, compiled from various
  forums with very little formatting.
  Spelling and grammatical errors are very common, and sometimes may even
- contain html markup.
+ contain HTML markup.
  Preprocessing this data to get useful features will be a very important
  step towards accurately classifying insults.
 \begin_inset Newpage pagebreak
@@ -176,12 +168,22 @@ Literature Survey
 \end_layout
 
 \begin_layout Standard
-After searching the Internet we found ten sites that have done a study on
- the same topic or very close to the same topics.
+After searching the Internet we found ten sites
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+The 10 research articles we found are located in the bibliography.
+ 
+\end_layout
+
+\end_inset
+
+ that have done a study on the same topic or very close to the same topics.
  Existing work that has already been done on our problem consists of using
  different kinds of tree structures along with several different ways of
  preprocessing the data.
- Our literature survey will be mention four articles: Modeling the Detection
+ Our literature survey will be mention four articles: M2odeling the Detection
  of Textual Cyber bullying
 \begin_inset CommandInset citation
 LatexCommand cite
@@ -385,7 +387,384 @@ Approach
 \end_layout
 
 \begin_layout Standard
-(present tense)
+Our approach involves a series of stages which involve: preprocessing the
+ data to remove any “noise” that will prevent us from creating useful features;
+ extracting features from the comments and the time provided for each comment;
+ bootstrapping to return the best learner and classifier for the generated
+ features; and finally to use the returned learner and classifier to predict
+ within the range 
+\begin_inset Formula $\left[0,1\right]$
+\end_inset
+
+ of how confident we are that each comment in the test set is an insult.
+ The figure below summarizes our approach.
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+Preprocessing
+\series default
+ The comments require a number of preprocessing steps to produce useful
+ features.
+ Our end goal for the comments is to use the words within each comment as
+ the features for each training and test input into our learning algorithm.
+ The first step involved in our preprocessing stage is to return a list
+ of individual words from each comment in the testing and training set.
+ To accomplish this we use a tokenizer implemented by Ryan Kelly
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Ry10pyenchant10"
+
+\end_inset
+
+ which in addition to returning individual words, also removes words and
+ characters sequences that would not be useful for classifying insults (such
+ as HTML markup, email addresses, URL’s, and stop words).
+\end_layout
+
+\begin_layout Standard
+Once the words we have been tokenized, we spell check each word returned
+ from the tokenizer to insure that any misspelled words will be represented
+ as the same feature.
+ We then use the Levenshtein distance for each misspelled word that has
+ been corrected by the spell checker to insure that the spell checked word
+ is similar enough to the original misspelled word to be a useful feature.
+ The Levenshtein distance is a simple string metric that is used to measure
+ the distance between two strings.
+ It represents the number of single character replacements that would be
+ needed to change one word into another.
+ Mathematically, the Levenshtein distance between two strings a,b is given
+ by
+\begin_inset Formula $lev_{a,b}(|a|,|b|)$
+\end_inset
+
+ where:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+lev_{a,b}(i,j)=\begin{cases}
+max(i,j) & ,min(i,j)=0\\
+min\begin{cases}
+lev_{a,b}(i-1,j)+1\\
+lev_{a,b}(i,j-1)+1\\
+lev_{a,b}(i-1,j-1)+[a_{i}\neq b_{j}]
+\end{cases} & ,else
+\end{cases}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We found that any spell checked word with a Levenshtein distance greater
+ than 3 from the original word did not accurately represent the original
+ misspelled word.
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+Feature Selection
+\series default
+ After the comments have been preprocessed we use the bag of words model
+ as our feature representation for our testing and training sets.
+ In the bag of words model, each of our comments is represented as an unordered
+ collection of words, where the frequency of each word is used as a feature
+ for the learning algorithm.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Boxed
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Plain Layout
+
+\series bold
+Example: 
+\series default
+Below are two sentences:
+\end_layout
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Box Frameless
+position "c"
+hor_pos "c"
+has_inner_box 1
+inner_pos "c"
+use_parbox 0
+use_makebox 0
+width "240pt"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Plain Layout
+\begin_inset Quotes eld
+\end_inset
+
+Hello Dale, Are you drinking water?
+\begin_inset Quotes erd
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Quotes eld
+\end_inset
+
+Why are there different colors of water? Why?
+\begin_inset Quotes erd
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+With these two sentences we can create a dictionary of distinct words which
+ looks like this:
+\end_layout
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Box Frameless
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "220pt"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Plain Layout
+1:hello,2:dale,3:are,4:you.5:drinking,6:water,
+\end_layout
+
+\begin_layout Plain Layout
+7:why,8:there,9:different,10:colors,11:of
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+This dictionary now contains 10 distinct words which gets translated into
+ a simple vector of size (1,10) which is now the vector for each sentence.
+ With two sentences you will have a matrix of size (2,10) which will now
+ contain the word count at each index of the vector:
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Formula 
+\[
+\begin{array}{cccccccccc}
+1 & 1 & 1 & 1 & 1 & 1 & 0 & 0 & 0 & 0\\
+0 & 0 & 1 & 0 & 0 & 1 & 2 & 1 & 1 & 1
+\end{array}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+You may notice that after the conversion we increment many times the word
+ has occurred at the index where the word exists.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We found that bag of words generates too many features for each comment
+ (~15000).
+ So we took an approach that has been commonly used for text classification:
+ using only a certain numbers of the most frequent words that occur across
+ all comments for the bag of words model.
+ Using this method we can choose the number of features (words) that we
+ want to represent for the comments.
+\end_layout
+
+\begin_layout Standard
+In addition to using word frequency for our feature representation, we also
+ use the time that the comment was made.
+ Specifically we use the day of the week and the hour that the comment was
+ made as a binary representation and append it to our word features.
+ 
+\begin_inset Newline newline
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Boxed
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Plain Layout
+
+\series bold
+Example:
+\series default
+ Binary Representation
+\end_layout
+
+\begin_layout Plain Layout
+Lets take the format YYYYMMDDhhmmss which we use the month(MM) and the day(DD).
+ We take this information and turn it into which day of the week the comment
+ was created on.
+ We then take 2 digits(hh) for hour.
+ We then create a vector of size (31,1) with the first 7 cells represent
+ the weekday(s,m,t,w,th,f,s) and the other 24 cells representing the time
+ of day.
+ Below shows a graphical conversion:
+\end_layout
+
+\begin_layout Plain Layout
+\noindent
+\align center
+20121213021300 
+\begin_inset Formula $\Longrightarrow$
+\end_inset
+
+
+\begin_inset Formula $\begin{array}{ccccccccccc}
+0_{0} & ... & 0_{3} & 1_{4} & 0_{5} & ... & 0_{8} & 1_{9} & 0_{10} & ... & 0_{23}\end{array}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+Learners
+\series default
+ To classify the insults, we implement a variety of learners and kernel
+ transformations.
+ Because the original Kaggle description of the problem requires a probability
+ as a result we use a sigmoid loss margin learner as one of our algorithms.
+ We use the sigmoid transformation
+\end_layout
+
+\begin_layout Standard
+[equation: 
+\begin_inset Formula $\hat{y}=(1+e^{(-\hat{z})})^{-1}$
+\end_inset
+
+]
+\end_layout
+
+\begin_layout Standard
+and the sigmoid loss
+\end_layout
+
+\begin_layout Standard
+[equation: 
+\begin_inset Formula $y*log(\frac{y}{\hat{y}})+(1-y)*log(\frac{1-y}{1-\hat{y}})$
+\end_inset
+
+]
+\end_layout
+
+\begin_layout Standard
+to learn on a probability scale.
+ However, to prevent divisions by zero, we provide slight offsets of 1e-6
+ to the given y training vector.
+ Classification is done using a confidence level at which any result with
+ a probability about that level is classified as an insult.
+\end_layout
+
+\begin_layout Standard
+In addition to the sigmoid-margin learner, we use the log-sum-exp-margin,
+ soft-margin, and dual hard-margin algorithms, as implemented in the second
+ assignment, so we can compare these classification methods.
+ All learners are in their kernelized forms because the large amount of
+ features creates prohibitively sized matrices.
+ And, all learners are also regularized because the problem statement on
+ Kaggle mentions that overfitting is often an issue.
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+Kernels
+\series default
+ We use linear, gaussian, and bag-of-words kernels in our learners to determine
+ the best algorithm for this problem.
+ The linear and gaussian kernels are implemented as in the assignments.
+ Our bag-of-words kernels comes in two forms:
+\end_layout
+
+\begin_layout Standard
+• binary shared words: the value of similarity between two comments (concerning
+ similar words) is the number of words each comments share, not taking into
+ account duplicates; this is the equivalent to the linear kernel of a regular,
+ binary bag-of-words feature expansion.
+\end_layout
+
+\begin_layout Standard
+• count of common shared words: the value of similarity between two comments
+ (concerning similar words) is the total number of words the comments have
+ in common; that is, for each word the comments share, the total number
+ of common words is the minimum of the count of that word in both comments.
 \end_layout
 
 \begin_layout Section
@@ -393,7 +772,124 @@ Rationale
 \end_layout
 
 \begin_layout Standard
-(present tense)
+
+\series bold
+Preprocessing
+\series default
+ The preprocessing stage ended up being much more difficult than expected.
+ A large number of the comments from the data set had a significant amount
+ of grammatical and spelling errors.
+ Attempting to use these comments without any preprocessing would have resulted
+ in too many features to be of any use for our learning algorithm.
+ For example, a word that has been misspelled by just a single character
+ such as “lerner” would result in new feature, when it could instead be
+ corrected and use the word “learner” as a common feature instead.
+ As a result it was obvious that each comment needed to be spell checked
+ in order to reduce the feature space and to provide more accurate representatio
+ns of the comments to the learners.
+ Similarly it was obvious that we needed to remove words that would tell
+ us nothing about about the insulting nature of a comment, or would have
+ a very low frequency among other comments in our data set.
+ As a result it was also obvious that we would need to remove any additional
+ words or character sequences from our feature space (such as HTML, URL’s,
+ email addresses, misspelled acronyms, etc.) with a low frequency among the
+ other comments.
+\end_layout
+
+\begin_layout Standard
+While compiling material for our literature survey we also found that a
+ number of previous researchers were seeing improved results by removing
+ stop words from their documents such as [Li11modelingthe].
+ Luckily we were able to find a tokenizer implemented by [BLAH] to accomplish
+ this for us.
+ Another idea that we use to reduce the feature space is to only keep a
+ specified number of the most frequent words that occur across all documents.
+ This allows us to drastically reduce the number of features that we are
+ using as we were still getting close to 9000 features after tokenization,
+ spell checking, and using the Levenshtein distance.
+ From early testing, this original feature space appeared to be too large
+ to allow us to make accurate classifications.
+\end_layout
+
+\begin_layout Standard
+Another subtle issue that we noticed early on is that our spell checker
+ would make spelling suggestions that were drastically different than the
+ word being spell checked.
+ Obviously a corrected word that is drastically different from its original
+ meaning would not be useful when it came time to classify the comment that
+ contained that word as insulting.
+ We solve this issue by using the Levenshtein distance mentioned above by
+ discarding any spell checking suggestions that have a distance greater
+ than 3 as we noticed that suggested words tend to diverge from their original
+ meaning around this value.
+\end_layout
+
+\begin_layout Standard
+As for coming up for the feature representations for the comments, we wanted
+ to use an approach that was relatively simple and intuitive since this
+ was our first attempt at converting textual documents to features.
+ A number of the papers that we came across used the bag-of-words model
+ ) [Ch12detectingoffensive], and appeared to be getting successful results.
+ The approach was intuitive enough for us to understand.
+ We also decided to attach time as a feature since it was supplied as an
+ attribute in our data set, and we also came across some literature that
+ supported idea that the frequency of insults is correlated with the time
+ of day and day of the week.
+ [Ow12profanityuse].
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+Feature Expansion
+\series default
+ Of all the text transformations used for machine learning purposes, the
+ bag-of-words feature expansion was the quickest and easiest to implement.
+ It did not require a database of words or a very complex algorithm to create
+ useful features, and there existed libraries to assist in easy generation
+ of a bag-of-words model.
+\end_layout
+
+\begin_layout Standard
+Also, time could be a useful feature because times when youth are most active
+ on the internet should result in more insults.
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+Learners
+\series default
+ Because we want to compare the accuracy of several approaches to this problem,
+ we need a baseline to compare to, and we have experience with these methods,
+ the log-sum-exp-margin, soft-margin, and dual hard-margin algorithms are
+ used.
+ And, because the Kaggle problem statement requires probability, and we
+ are concerned with over classifying comments as insults, we feel that the
+ sigmoid-margin learner will be more successful than the other binary classifier
+s we have studied over the course; the sigmoid transformation is the obvious
+ choice for dealing with probabilities.
+ Also, because of the size of the feature expansion, using kernels is basically
+ required for effective testing.
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+Kernels
+\series default
+ The feature expansions we chose dictates, somewhat, the kernels that we
+ use in our learners.
+ The binary bag-of-words kernel is the classic kernel for the bag-of-words
+ feature expansion, but we think that counting the total number of shared
+ words may better indicate similarity due to frequency of swear words and
+ other insulting terms.
+\end_layout
+
+\begin_layout Standard
+In addition, the linear and gaussian kernels are a common baseline, and
+ could give us interesting insight into the form of the data if they prove
+ useful.
 \end_layout
 
 \begin_layout Section
@@ -401,31 +897,89 @@ Hypotheses
 \end_layout
 
 \begin_layout Standard
-A bag-of-words feature representation of text is simple enough to implement
- and useful enough to accurately represent similarities between comments.
- Certain transformations may be necessary to deal with spelling issues and
- common words.
- In addition, a count of the number of each word in a comment, rather than
- just a binary yes or no of a word's presence in a comment, better demonstrates
- similarities between the text.
+After reviewing the documents mentioned in the literature survey it was
+ hypothesized that if we combined what we found to be the most useful and
+ intuitive methods we would be able to accurately classify a comment as
+ insulting.
+ We decided to test the following methods:
 \end_layout
 
 \begin_layout Standard
-The kernel that uses the common count of shared words is an improvement
+
+\series bold
+Bag-of-words features
+\series default
+ A bag-of-words feature representation of text is simple enough to implement
+ and useful enough to accurately represent similarities between comments.
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+Removing infrequent words
+\series default
+ Reducing the total number of words to the top X most frequent words improves
+ performance by making the kernel transformations faster.
+ It should also get rid of useless features that do not help the learner.
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+Removing stop words
+\series default
+ The removal of stop words (such as “you”, “a”, and “if” … ) reduces the
+ number of useless features which improves accuracy of learners that use
+ bag-of-words features.
+ Very common words are probably not that useful in determining if a comment
+ is an insult or not.
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+Levenshtein distance
+\series default
+ Levenshtein distance is very useful in reducing the probability that the
+ spell check preprocessing gives bad replacements of misspelt words, thus
+ transferring bad features to the learners
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+Time as a feature
+\series default
+ Adding time of day and day of week as weighted features (to provide a noticeabl
+e difference in the similarity matrices) gives learners additional useful
+ features to classify comments.
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+Kernels
+\series default
+ The kernel that uses the common count of shared words is an improvement
  over the regular bag-of-words kernel that takes into account only whether
  two comments share a word.
  This kernel is also not significantly slower than the binary bag-of-words
  kernel.
+ In addition, the linear and gaussian kernels are not superior to the bag-of-wor
+ds kernels because the feature expansion is suited especially to the bag-of-word
+s kernels.
 \end_layout
 
 \begin_layout Standard
-Using a sigmoid-margin learner to predict probabilities, then classifying
- with a certain confidence level, separates the data with less misclassification
-s than using traditional binary classifiers such as log-sum-exp-margin and
- hard-margin.
+
+\series bold
+Learners
+\series default
+ The sigmoid-margin learners are more accurate in determining if a comment
+ is an insult.
  Since overfitting is a significant problem, using a confidence level to
  allow classification of insults is a better solution for this problem than
- relying solely on the adjustment of a beta regularizer.
+ relying solely on the beta regularizer.
 \end_layout
 
 \begin_layout Section
@@ -433,21 +987,52 @@ Experimental Design
 \end_layout
 
 \begin_layout Standard
-To test the time performance and compare the quality of the common word
- count bag-of-word kernel to the binary bag-of-words kernel, we ran tests
- on several learners using both kernels, in addition to the linear and gaussian
- kernel.
+To test the time performance and compare the quality of the various feature
+ expansions, kernels, and learners, we ran tests on all the combinations
+ of kernels and learners at different levels of feature expansion.
  We used a 4 pass bootstrapping algorithm to select the best of each combination
- of kernel and learner, in terms of minimum error.
- Using this process we also determined whether the sigmoid-margin classifier
- had better results than the binary classifiers.
+ of kernel and learner, in terms of average minimum error, at each feature
+ expansion level.
  We also checked the average training time for each algorithm combination
  during bootstrapping.
+ To create a useful set of training data, we took an equal amount of randomly
+ selected insult and non-insult training data, since the given training
+ data was significantly skewed towards non-insult comments.
 \end_layout
 
 \begin_layout Standard
-We ran the following combinations of kernel transformations and learning
- algorithms with one tenth of the training data (250 entries).
+We used the following feature expansion levels to test our hypotheses:
+\end_layout
+
+\begin_layout Itemize
+Our plain bag-of-words model with a Levenshtein distance of 20 (rendered
+ the Levenshtein distance almost useless).
+ This established a baseline for the bag-of-words feature expansion.
+\end_layout
+
+\begin_layout Itemize
+The same specifications as the above level, but only using the 3000 most
+ frequent words.
+\end_layout
+
+\begin_layout Itemize
+The same specifications as the above level, but with all stop words removed.
+\end_layout
+
+\begin_layout Itemize
+The same specifications as the above level, but with a Levenshtein distance
+ of 3.
+\end_layout
+
+\begin_layout Itemize
+The same specifications as the above level, but with time (hour and day
+ of week) added as a feature.
+\end_layout
+
+\begin_layout Standard
+Once we had our 5 sets of data, we ran the following combinations of kernel
+ transformations and learning algorithms on one tenth of each training data
+ set (250 entries per set).
 \end_layout
 
 \begin_layout Standard
@@ -496,6 +1081,12 @@ All tests were run with a beta regularizer of 0.5 to deal with overfitting.
 
 \begin_layout Standard
 We ran all the tests on the computers in the Database and AI lab.
+\end_layout
+
+\begin_layout Standard
+With all this data of each combination of learner and kernel, and each feature
+ expansion level, we could determine the speed and accuracy improvements
+ between each specification.
 \end_layout
 
 \begin_layout Section
