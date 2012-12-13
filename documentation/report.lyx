@@ -220,7 +220,14 @@ The first publication on Bullying in Barcelona demonstrated how “Each dataset
  was subjected to three operations: removal of stop-words, stemming and
  removal of unimportant sequence of characters.
  Sequences of characters such as ‘@someuser’,’lollllll’,’hahahahaha’, etc.,
- were expunged from the datasets.”[Li11modelingthe].
+ were expunged from the datasets.”
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Li11modelingthe"
+
+\end_inset
+
+.
  The publication also made some assumptions on sexuality, race and culture,
  and intelligence which adds more fine tuning features to their preprocessing
  of the datasets.
@@ -352,6 +359,16 @@ With the first two articles choosing to use bag of words we thought it was
  When choosing features we also decided to eliminate stop-words, sequence
  characters, word frequency, and the time of day in which the comment was
  posted.
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset citation
+LatexCommand nocite
+key "Ch10textmining10,Da12cyberbullyingdetection,Ha12bigdata,Wi12levenshteindistance,Wi12bagof,Sc08advancesin,Ow12profanityuse,Na07acomparison,Ma12analyticsfor,Li11modelingthe,Ka12robustdetectio,Ka12detectingoffensive,Im12detectinginsults,Ch12detectingoffensive"
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Section
