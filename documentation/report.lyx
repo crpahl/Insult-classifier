@@ -422,7 +422,7 @@ status open
 \begin_layout Plain Layout
 
 \size scriptsize
-Figure 1: Here is a diagram of our approach that involves a series of stages.
+Figure 1: A diagram of our approach that involves a series of stages.
 \end_layout
 
 \end_inset
@@ -840,10 +840,24 @@ ns of the comments to the learners.
 
 \begin_layout Standard
 While compiling material for our literature survey we also found that a
- number of previous researchers were seeing improved results by removing
- stop words from their documents such as [Li11modelingthe].
- Luckily we were able to find a tokenizer implemented by [BLAH] to accomplish
- this for us.
+ number of previous researchers, such as Karthik Dinakar et al.
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Li11modelingthe"
+
+\end_inset
+
+, were seeing improved results by removing stop words from their documents
+ .
+ Luckily we were able to find a tokenizer implemented by Christian Pecci
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Ch10textmining10"
+
+\end_inset
+
+ to accomplish this for us.
  Another idea that we use to reduce the feature space is to only keep a
  specified number of the most frequent words that occur across all documents.
  This allows us to drastically reduce the number of features that we are
@@ -871,13 +885,26 @@ As for coming up for the feature representations for the comments, we wanted
  to use an approach that was relatively simple and intuitive since this
  was our first attempt at converting textual documents to features.
  A number of the papers that we came across used the bag-of-words model
- ) [Ch12detectingoffensive], and appeared to be getting successful results.
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Ch12detectingoffensive"
+
+\end_inset
+
+, and appeared to be getting successful results.
  The approach was intuitive enough for us to understand.
  We also decided to attach time as a feature since it was supplied as an
  attribute in our data set, and we also came across some literature that
  supported idea that the frequency of insults is correlated with the time
- of day and day of the week.
- [Ow12profanityuse].
+ and day of the week 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Ow12profanityuse"
+
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Standard
@@ -1422,6 +1449,8 @@ N/A
 \size scriptsize
 Table 1: Result of learners run on a data set using the following features
  and preprocessing steps: Bag-of-words.
+ This test was taking an unreasonable amount of time and was canceled before
+ it could complete.
 \end_layout
 
 \end_inset
