@@ -103,10 +103,19 @@ function [errors, bestLearner, results, loss, testTime] = bootstrap_test(algorit
         sigmoid_learn_gauss, sigmoid_pred, sigmoid_loss
     };
     
-    minAlgorithms = {
-        lse_learn_min, lse_pred, svm_loss;
-        soft_learn_min, lse_pred, svm_loss;
-        hard_learn_min, dual_pred, dual_loss;
+    min1Algorithms = {
+        lse_learn_min, lse_pred, svm_loss
+    };
+    
+    min2Algorithms = {
+        soft_learn_min, lse_pred, svm_loss
+    };
+    
+    min3Algorithms = {
+        hard_learn_min, dual_pred, dual_loss
+    };
+    
+    min4Algorithms = {
         sigmoid_learn_min, sigmoid_pred, sigmoid_loss
     };
     
@@ -159,8 +168,14 @@ function [errors, bestLearner, results, loss, testTime] = bootstrap_test(algorit
         algorithms = linAlgorithms;
     elseif strcmp(algorithmSet, 'gauss')
         algorithms = gaussAlgorithms;
-    elseif strcmp(algorithmSet, 'min')
-        algorithms = minAlgorithms;
+    elseif strcmp(algorithmSet, 'min1')
+        algorithms = min1Algorithms;
+    elseif strcmp(algorithmSet, 'min2')
+        algorithms = min2Algorithms;
+    elseif strcmp(algorithmSet, 'min3')
+        algorithms = min3Algorithms;
+    elseif strcmp(algorithmSet, 'min4')
+        algorithms = min4Algorithms;
     elseif strcmp(algorithmSet, 'binary')
         algorithms = binaryAlgorithms;
     elseif strcmp(algorithmSet, 'confidence')

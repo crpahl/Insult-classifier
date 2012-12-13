@@ -159,10 +159,10 @@ YYYMMDDhhmmss
 
 , and the corresponding comment.
  The time is on a 24 hour clock corresponding to when the comment was made.
- The comments are mostly english language comments, compiled from various
+ The comments are mostly English language comments, compiled from various
  forums with very little formatting.
  Spelling and grammatical errors are very common, and sometimes may even
- contain html markup.
+ contain HTML markup.
  Preprocessing this data to get useful features will be a very important
  step towards accurately classifying insults.
 \end_layout
@@ -196,7 +196,31 @@ Hypotheses
 \end_layout
 
 \begin_layout Standard
-(present tense)
+A bag-of-words feature representation of text is simple enough to implement
+ and useful enough to accurately represent similarities between comments.
+ Certain transformations may be necessary to deal with spelling issues and
+ common words.
+ In addition, a count of the number of each word in a comment, rather than
+ just a binary yes or no of a word's presence in a comment, better demonstrates
+ similarities between the text.
+\end_layout
+
+\begin_layout Standard
+The kernel that uses the common count of shared words is an improvement
+ over the regular bag-of-words kernel that takes into account only whether
+ two comments share a word.
+ This kernel is also not significantly slower than the binary bag-of-words
+ kernel.
+\end_layout
+
+\begin_layout Standard
+Using a sigmoid-margin learner to predict probabilities, then classifying
+ with a certain confidence level, separates the data with less misclassification
+s than using traditional binary classifiers such as log-sum-exp-margin and
+ hard-margin.
+ Since overfitting is a significant problem, using a confidence level to
+ allow classification of insults is a better solution for this problem than
+ relying solely on the adjustment of a beta regularizer.
 \end_layout
 
 \begin_layout Section
@@ -204,7 +228,66 @@ Experimental Design
 \end_layout
 
 \begin_layout Standard
-(past tense)
+To test the time performance and compare the quality of the common word
+ count bag-of-word kernel to the binary bag-of-words kernel, we ran tests
+ on several learners using both kernels, in addition to the linear and gaussian
+ kernel.
+ We used a 4 pass bootstrapping algorithm to select the best of each combination
+ of kernel and learner, in terms of minimum error.
+ Using this process we also determined whether the sigmoid-margin classifier
+ had better results than the binary classifiers.
+ We also checked the average training time for each algorithm combination
+ during bootstrapping.
+\end_layout
+
+\begin_layout Standard
+We ran the following combinations of kernel transformations and learning
+ algorithms with one tenth of the training data (250 entries).
+\end_layout
+
+\begin_layout Standard
+Learners:
+\end_layout
+
+\begin_layout Itemize
+adjoint log-sum-exp-margin classifier
+\end_layout
+
+\begin_layout Itemize
+adjoint soft-margin classifier
+\end_layout
+
+\begin_layout Itemize
+hard-margin classifier
+\end_layout
+
+\begin_layout Itemize
+sigmoid-margin probability predictor
+\end_layout
+
+\begin_layout Standard
+Kernels:
+\end_layout
+
+\begin_layout Itemize
+linear kernel
+\end_layout
+
+\begin_layout Itemize
+gaussian kernel with a sigma value of 20
+\end_layout
+
+\begin_layout Itemize
+binary bag-of-words kernel
+\end_layout
+
+\begin_layout Itemize
+common word count bag-of-words kernel
+\end_layout
+
+\begin_layout Standard
+All tests were run with a beta regularizer of 0.5 to deal with overfitting.
+ 
 \end_layout
 
 \begin_layout Section
@@ -213,6 +296,12 @@ Results
 
 \begin_layout Standard
 (past tense)
+\end_layout
+
+\begin_layout Standard
+The only combination not tested was the linear kernel with the adjoint log-sum-e
+xp-margin classifier since the Matlab optimizer could not solve this problem
+ without crashing.
 \end_layout
 
 \begin_layout Section
