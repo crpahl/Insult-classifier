@@ -91,7 +91,8 @@ Abstract
 \end_layout
 
 \begin_layout Standard
-Insults and abuse on the Internet are becoming a growing problem as we become
+
+Insults and abuse on the Internet is becoming a growing problem as we become
  increasingly connected.
  Anonymity and a lack of supervision has led to an increasing number of
  insults in forums that try to promote communication.
@@ -174,7 +175,7 @@ After searching the Internet we found ten sites
 status open
 
 \begin_layout Plain Layout
-The 10 research articles we found are located in the bibliography.
+The 10 research articles we found are located in the references below.
  
 \end_layout
 
@@ -417,16 +418,13 @@ Approach
 \end_layout
 
 \begin_layout Standard
-Our approach involves a series of stages which involve: preprocessing the
+Our approach involves a series of stages which include: preprocessing the
  data to remove any “noise” that will prevent us from creating useful features;
- extracting features from the comments and the time provided for each comment;
- bootstrapping to return the best learner and classifier for the generated
- features; and finally to use the returned learner and classifier to predict
- within the range 
-\begin_inset Formula $\left[0,1\right]$
-\end_inset
-
- of how confident we are that each comment in the test set is an insult.
+ extracting features from the comments, and making use of the provided time
+ attribute; bootstrapping to determine the best learner and classifier for
+ the generated features, and the best feature representation to use for
+ the data set; and finally to use the returned learner and classifier to
+ classify insults in the testing set.
  The figure below summarizes our approach.
 \begin_inset Newline newline
 \end_inset
@@ -481,9 +479,9 @@ Preprocessing
  The comments require a number of preprocessing steps to produce useful
  features.
  Our end goal for the comments is to use the words within each comment as
- the features for each training and test input into our learning algorithm.
+ the features for the training and testing sets for our learning algorithm.
  The first step involved in our preprocessing stage is to return a list
- of individual words from each comment in the testing and training set.
+ of the individual words from each comment in the testing and training set.
  To accomplish this we use a tokenizer implemented by Ryan Kelly
 \begin_inset CommandInset citation
 LatexCommand cite
@@ -492,8 +490,8 @@ key "Ry10pyenchant10"
 \end_inset
 
  which in addition to returning individual words, also removes words and
- characters sequences that would not be useful for classifying insults (such
- as HTML markup, email addresses, URL’s, and stop words).
+ characters sequences that would not be useful as features for classifying
+ insults (such as HTML markup, email addresses, URL’s, and stop words).
 \end_layout
 
 \begin_layout Standard
@@ -571,7 +569,7 @@ status open
 \series bold
 Example: 
 \series default
-Below are two sentences:
+Below are two sentences that demonstrate the bag-of-words model:
 \end_layout
 
 \begin_layout Plain Layout
@@ -619,7 +617,7 @@ Why are there different colors of water? Why?
 
 \begin_layout Plain Layout
 With these two sentences we can create a dictionary of distinct words which
- looks like this:
+ looks like this (we ignore case):
 \end_layout
 
 \begin_layout Plain Layout
@@ -653,7 +651,8 @@ status open
 
 \begin_layout Plain Layout
 This dictionary now contains 10 distinct words which gets translated into
- a simple vector of size (1,10) which is now the vector for each sentence.
+ a simple vector of size (1,10) which is now the feature representation
+ for each sentence.
  With two sentences you will have a matrix of size (2,10) which will now
  contain the word count at each index of the vector:
 \end_layout
@@ -731,17 +730,17 @@ status open
 \series bold
 Example:
 \series default
- Binary Representation
+ Time feature representation
 \end_layout
 
 \begin_layout Plain Layout
-Lets take the format YYYYMMDDhhmmss which we use the month(MM) and the day(DD).
- We take this information and turn it into which day of the week the comment
- was created on.
- We then take 2 digits(hh) for hour.
- We then create a vector of size (31,1) with the first 7 cells represent
- the weekday(s,m,t,w,th,f,s) and the other 24 cells representing the time
- of day.
+Lets take the format YYYYMMDDhhmmss from which we use the month(MM) and
+ the day(DD) for our feature representation.
+ We take this information and represent which day of the week and hour the
+ comment was created on.
+ We then create a vector of size (31,1) where the first 7 cells represent
+ the weekday(s,m,t,w,th,f,s) and the other 24 cells represent the time of
+ day.
  Below shows a graphical conversion:
 \end_layout
 
@@ -781,8 +780,8 @@ Learners
  To classify the insults, we implement a variety of learners and kernel
  transformations.
  Because the original Kaggle description of the problem requires a probability
- as a result, we use a sigmoid loss margin learner as one of our algorithms.
- We use the sigmoid transformation
+ as a result we use a sigmoid loss margin learner as one of our algorithms.
+ Specifically, we use the sigmoid transformation
 \end_layout
 
 \begin_layout Standard
@@ -834,15 +833,15 @@ Kernels
  Our bag-of-words kernels comes in two forms:
 \end_layout
 
-\begin_layout Standard
-• binary shared words: the value of similarity between two comments (concerning
+\begin_layout Itemize
+Binary shared words: the value of similarity between two comments (concerning
  similar words) is the number of words each comments share, not taking into
  account duplicates; this is the equivalent to the linear kernel of a regular,
  binary bag-of-words feature expansion.
 \end_layout
 
-\begin_layout Standard
-• count of common shared words: the value of similarity between two comments
+\begin_layout Itemize
+Count of common shared words: the value of similarity between two comments
  (concerning similar words) is the total number of words the comments have
  in common; that is, for each word the comments share, the total number
  of common words is the minimum of the count of that word in both comments.
@@ -858,19 +857,19 @@ Rationale
 Preprocessing
 \series default
  The preprocessing stage ended up being much more difficult than expected.
- A large number of the comments from the data set had a significant amount
+ A large number of the comments from the data set have a significant amount
  of grammatical and spelling errors.
  Attempting to use these comments without any preprocessing would have resulted
  in too many features to be of any use for our learning algorithm.
  For example, a word that has been misspelled by just a single character
- such as “lerner” would result in new feature, when it could instead be
- corrected and use the word “learner” as a common feature instead.
+ such as “lerner” would result in a new feature, when it could instead be
+ corrected to use the word “learner” as a common feature instead.
  As a result it was obvious that each comment needed to be spell checked
- in order to reduce the feature space and to provide more accurate representatio
-ns of the comments to the learners.
+ in order to reduce the feature space, and to provide more accurate representati
+ons of the comments to the learners.
  Similarly it was obvious that we needed to remove words that would tell
- us nothing about about the insulting nature of a comment, or would have
- a very low frequency among other comments in our data set.
+ us nothing about about the insulting nature of a comment; otherwise we
+ would have a very low frequency among other comments in our data set.
  As a result it was also obvious that we would need to remove any additional
  words or character sequences from our feature space (such as HTML, URL’s,
  email addresses, misspelled acronyms, etc.) with a low frequency among the
@@ -886,8 +885,7 @@ key "Li11modelingthe"
 
 \end_inset
 
-, were seeing improved results by removing stop words from their documents
- .
+, were seeing improved results by removing stop words from their documents.
  Luckily we were able to find a tokenizer implemented by Christian Pecci
  
 \begin_inset CommandInset citation
@@ -900,7 +898,7 @@ key "Ch10textmining10"
  Another idea that we use to reduce the feature space is to only keep a
  specified number of the most frequent words that occur across all documents.
  This allows us to drastically reduce the number of features that we are
- using as we were still getting close to 9000 features after tokenization,
+ using as we were still getting close to 9000 features after tokenizing,
  spell checking, and using the Levenshtein distance.
  From early testing, this original feature space appeared to be too large
  to allow us to make accurate classifications.
@@ -911,8 +909,7 @@ Another subtle issue that we noticed early on is that our spell checker
  would make spelling suggestions that were drastically different than the
  word being spell checked.
  Obviously a corrected word that is drastically different from its original
- meaning would not be useful when it came time to classify the comment that
- contained that word as insulting.
+ meaning would not be a useful feature for classification.
  We solve this issue by using the Levenshtein distance mentioned above by
  discarding any spell checking suggestions that have a distance greater
  than 3 as we noticed that suggested words tend to diverge from their original
@@ -932,11 +929,12 @@ key "Ch12detectingoffensive"
 \end_inset
 
 , and appeared to be getting successful results.
- The approach was intuitive enough for us to understand.
+ This approach was very appealing as it was intuitive enough for us to quickly
+ understand.
  We also decided to attach time as a feature since it was supplied as an
- attribute in our data set, and we also came across some literature that
- supported idea that the frequency of insults is correlated with the time
- and day of the week 
+ attribute in our data set, and we came across some literature that supported
+ idea that the frequency of insults is correlated with the time and day
+ of the week 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Ow12profanityuse"
@@ -952,7 +950,8 @@ key "Ow12profanityuse"
 Feature Expansion
 \series default
  Of all the text transformations used for machine learning purposes, the
- bag-of-words feature expansion was the quickest and easiest to implement.
+ bag-of-words feature expansion was the quickest to implement and the easiest
+ to comprehend.
  It did not require a database of words or a very complex algorithm to create
  useful features, and there existed libraries to assist in easy generation
  of a bag-of-words model.
@@ -964,8 +963,8 @@ Feature Expansion
 Learners
 \series default
  Because we want to compare the accuracy of several approaches to this problem,
- we need a baseline to compare to, and we have experience with these methods,
- the log-sum-exp-margin, soft-margin, and dual hard-margin algorithms are
+ we need a baseline to compare to, and we have experience with these methods.
+ The log-sum-exp-margin, soft-margin, and dual hard-margin algorithms are
  used.
  And, because the Kaggle problem statement requires probability, and we
  are concerned with over classifying comments as insults, we feel that the
@@ -1012,7 +1011,7 @@ After reviewing the documents mentioned in the literature survey it was
 \series bold
 Bag-of-words features
 \series default
- A bag-of-words feature representation of text is simple enough to implement
+ A bag-of-words feature representation of text is simple enough to implement,
  and useful enough to accurately represent similarities between comments.
 \end_layout
 
@@ -1045,7 +1044,7 @@ Levenshtein distance
 \series default
  Levenshtein distance is very useful in reducing the probability that the
  spell check preprocessing gives bad replacements of misspelled words, thus
- transferring bad features to the learners
+ preventing bad features from being supplied to the learners
 \end_layout
 
 \begin_layout Standard
@@ -1053,9 +1052,9 @@ Levenshtein distance
 \series bold
 Time as a feature
 \series default
- Adding time of day and day of week as weighted features (to provide a noticeabl
-e difference in the similarity matrices) gives learners additional useful
- features to classify comments.
+ Adding the time of day and day of week as weighted features (to provide
+ a noticeable difference in the similarity matrices) gives learners additional
+ useful features to classify comments.
 \end_layout
 
 \begin_layout Standard
@@ -1096,9 +1095,9 @@ Experimental Design
 To test the time performance and compare the quality of the various feature
  expansions, kernels, and learners, we ran tests on all the combinations
  of kernels and learners at different levels of feature expansion.
- We used a 4 pass bootstrapping algorithm to select the best of each combination
- of kernel and learner, in terms of average minimum error, at each feature
- expansion level.
+ We used a four pass bootstrapping algorithm to select the best of each
+ combination of kernel and learner, in terms of average minimum error, at
+ each feature expansion level.
  We also checked the average training time for each algorithm combination
  during bootstrapping.
  To create a useful set of training data, we took an equal amount of randomly
@@ -1136,9 +1135,9 @@ The same specifications as the above level, but with time (hour and day
 \end_layout
 
 \begin_layout Standard
-Once we had our 5 sets of data, we ran the following combinations of kernel
- transformations and learning algorithms on one tenth of each training data
- set (250 entries per set).
+Once we had our five sets of data, we ran the following combinations of
+ kernel transformations and learning algorithms on one tenth of each training
+ data set (300 entries per set).
 \end_layout
 
 \begin_layout Standard
@@ -1202,8 +1201,8 @@ Results
 \begin_layout Standard
 The following tables display the results seen from the above experiments
  specified in “Experimental Design”.
- Each column lists the loss (misclassification errors) and the running time(in
- seconds) for the corresponding learning algorithms.
+ Each column lists the loss (misclassification errors) and the running time
+ (in seconds) for the corresponding learning algorithms.
  Subsets of 300 training inputs containing an equal number of insults and
  non-insults were used by the bootstrapping algorithm to produce the following
  results:
@@ -2666,9 +2665,9 @@ Bag-of-words; 3000 most frequent bag-of-words features; stop words removed;
 And finally, to test our learner and data set more concretely we did one
  final test containing 2000 training inputs and 1000 test inputs each containing
  an equal number of of insults and non-insults.
- It wasn’t definitive which combination of learner and data set was better
+ It was not definitive which combination of learner and data set was best
  from our bootstrapping results so we decided to run the final test on the
- data set used to get the results in the 4th table using the sigmoid learner
+ data set used to get the results in the 4th table with the sigmoid learner
  with a linear kernel since it produced good results in a reasonable time:
 \end_layout
 
@@ -2788,31 +2787,33 @@ The results returned from our experiments definitely answered some of the
 
 \begin_layout Standard
 From the second table we were also able to show that by keeping only a certain
- number of the most frequent bag-of-word features we were able to significantly
- increase the performance of the learning algorithms as the first test that
- used an unmodified bag-of-words feature representation was not able to
- complete in a reasonable time -- most likely because there we simply too
- many features for the kernelized version to tell the learner anything useful
- about the similarities between each entry in the training set.
+ number of the most frequent bag-of-word features, we were able to significantly
+ increase the performance of the learning algorithms in comparison to the
+ first test that used an unmodified bag-of-words feature representation
+ which.
+ This test was not able to complete in a reasonable time -- most likely
+ because there we simply too many features for the kernelized version to
+ provide the learner with useful similarities between each entry in the
+ training set.
 \end_layout
 
 \begin_layout Standard
-The third table shows a surprisingly unintuitive result: Using the Levenshtein
+The third table shows a surprisingly unintuitive result: using the Levenshtein
  distance to remove poor spell checking suggestions both increased the running
  time and the loss returned from the sigmoid learning algorithms.
  This result is surprising because the Levenshtein distance should have
  strengthened the words being returned for the bag-of-words feature representati
-on creating a clearer similarity between both insulting and non-insulting
+on by creating a clearer similarity between both insulting and non-insulting
  comments.
  One possible reason for this result could in fact be due to the data set
- that we used for the 5 separate experiments.
- The data set across all 5 experiments consisted of 300 entries containing
+ that we used for the five separate experiments.
+ The data set across all five experiments consisted of 300 entries containing
  an equal number of insults and non-insults, but we made one unforeseen
  mistake while setting up these experiments: each data set of 300 entries
  was randomly generated for each experiment.
- In retrospect, using 5 different randomly generated data sets did not allow
- us to evaluate our hypotheses as accurately as if we had used the same
- data set across all 5 experiments.
+ In retrospect, using five different randomly generated data sets did not
+ allow us to evaluate our hypotheses as accurately as if we had used the
+ same data set across all five experiments.
  The discrepancy in the loss between tables 3 and 4 is still somewhat surprising
 , but can also be explained by the relatively small training size.
  Given more time, we should supply a larger data set to our bootstrapping
@@ -2820,16 +2821,16 @@ on creating a clearer similarity between both insulting and non-insulting
 \end_layout
 
 \begin_layout Standard
-The same issue were seen for the data set containing the time features.
- This could explained by the same reasoning as above.
- Or it could simply be that there is no relevant correlation between the
- frequency of insults and the time of day.
+The same issue was seen for the data set containing the time features.
+ This can be explained by the same reasoning as above, or it could simply
+ be that there is no relevant correlation between the frequency of insults
+ and the time of day.
  We are still convinced that there will be some correlation, and would require
  more testing to investigate this further.
  One possible refinement could be to make the feature more discreet: instead
- of using hours of the day, we could indicate whether the comment occur
- during the morning, afternoon, or evening which might more clearly reflect
- people’s surfing habits.
+ of using hours of the day, we could indicate whether the comment occurred
+ during the morning, afternoon, or evening which could more clearly reflect
+ people’s commenting habits.
 \end_layout
 
 \begin_layout Standard
@@ -2839,9 +2840,9 @@ It is also clear from the tables above that the Gaussian kernel was not
  Since over-fitting did appear to be somewhat of a problem, using a confidence
  interval did allow us to produce better results in some cases.
  Although the results were not conclusive enough to determine if that approach
- is the best choice.
- And some additional testing on larger data sets would be needed to conclusively
- determine if it’s more effective to use a confidence interval.
+ is the best choice, and some additional testing on larger data sets would
+ be needed to conclusively determine if it’s more effective to use a confidence
+ interval.
 \end_layout
 
 \begin_layout Section
@@ -2849,19 +2850,21 @@ Lessons Learned
 \end_layout
 
 \begin_layout Standard
-When we first started planning on how we were deciding what features we
- were going to implement in our project we never realized it was going to
- be so difficult.
- We ended up changing how we implemented the features several times to try
- to get some decent results.
- So this leads the team to agree that generating features from text is hard.
- Our choice of the bag of words model was a decent choice, but it really
- takes a lot of good pre-processing to be useful which in itself is very
- hard itself.
- With more dedicated time we would have explored more feature represent
- ions that we found in the documents that we read in the literature survey.
- It would have been nice to venture into tree implementations such as Bayesian
- additive regression trees(BART)
+When we first started planning on how to generate features, we greatly underesti
+mated how difficult and finicky it would be.
+ We ended up enhancing our preprocessing steps and bag-of-words feature
+ representations several times in order to provide the best possible features
+ to our learners.
+ It did not take us long to come to the realization that generating text
+ from features is a difficult problem that does not appear to have a common
+ solution.
+ Our choice of the bag-of-words model was a decent choice, but it takes
+ a significant amount of preprocessing to be usable which in itself is very
+ difficult.
+ With more dedicated time, we would have explored some additional feature
+ representations that we came across in our literature survey.
+ It would have been interesting to venture into tree implementations such
+ as Bayesian additive regression trees(BART)
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Na07acomparison"
@@ -2883,26 +2886,28 @@ key "Li11modelingthe"
 \end_inset
 
 .
- The String Kernel would have been nice to implement as it is supposed to
- work with a large datasets is very popular in research fields of text and
- gene analysis.
+ The String Kernel would have also been useful to implement as it is supposed
+ to work well with large datasets, and seems to be very popular in research
+ fields of text and gene analysis
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Wi12StringKernel"
 
 \end_inset
 
- Other features that would be great to implement are: sentence length, type
- of punctuations, sentence appearance(UPPERCASE for yelling), imperative
- sentences, appearance of offensive words, and the more content-specific
- features such as race, religion, etc...
+.
+ Other features that could have been useful to implement might have been:
+ sentence length, type of punctuations, sentence appearance(UPPERCASE for
+ yelling), imperative sentences, appearance of offensive words, and the
+ more content-specific features such as race, religion, etc...
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Ch12detectingoffensive"
 
 \end_inset
 
-
+.
+ 
 \end_layout
 
 \begin_layout Standard
